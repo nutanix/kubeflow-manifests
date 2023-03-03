@@ -1,0 +1,209 @@
+# Base configuration
+##########################################################
+baseURL = "https://nutanix.github.io/kubeflow-manifests"
+title = "Kubeflow on NKE"
+description = "Open-source machine learning platform running on NKE"
+
+# Language settings
+contentDir = "content/en"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+# Useful when translating.
+enableMissingTranslationPlaceholders = true
+
+enableRobotsTXT = true
+
+# Will give values to .Lastmod etc.
+enableGitInfo = true
+
+# Highlighting config
+pygmentsCodeFences = true
+pygmentsUseClasses = false
+# Use the new Chroma Go highlighter in Hugo.
+pygmentsUseClassic = false
+#pygmentsOptions = "linenos=table"
+# See https://help.farbox.com/pygments.html
+pygmentsStyle = "tango"
+
+# Image processing configuration.
+[imaging]
+  resampleFilter = "CatmullRom"
+  quality = 75
+  anchor = "smart"
+
+# Configure how URLs look like per section.
+[permalinks]
+  news = "/:section/:year/:month/:day/:slug/"
+
+##########################################################
+# Goldmark markdown parser
+##########################################################
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    # See a complete list of available styles at https://xyproto.github.io/splash/docs/all.html
+    style = "tango"
+    # Uncomment if you want your chosen highlight style used for code blocks without a specified language
+    guessSyntax = "true"
+    lineNumbersInTable = true
+    noClasses = false
+    anchorLineNos = false
+    codeFences = true
+    hl_Lines = ''
+    lineAnchors = ''
+    lineNoStart = 1
+    lineNos = false
+##########################################################
+# Google Analytics
+##########################################################
+[services]
+  [services.googleAnalytics]
+    # Comment out the next line to disable GA tracking. Also disables the feature described in [params.ui.feedback].
+    id = "G-GK9XL47N6S"
+##########################################################
+# Hugo module configuration
+##########################################################
+[module]
+  # uncomment line below for temporary local development of module
+  # replacements = "github.com/google/docsy -> ../../docsy"
+  [module.hugoVersion]
+    extended = true
+    min = "0.75.0"
+  [[module.imports]]
+    path = "github.com/google/docsy"
+    disable = false
+  [[module.imports]]
+    path = "github.com/google/docsy/dependencies"
+    disable = false    
+
+##########################################################
+# Menu header
+##########################################################
+[menu]
+  [[menu.main]]
+    name = "Docs"
+    weight = -101
+    #pre = "<i class='fa-solid fa-books pr-2'></i>"
+    url = "./docs/"
+  [[menu.main]]
+    name = "Source"
+    weight = -99
+    pre = "<i class='fa-brands fa-github pr-2'></i>"
+    url = "https://github.com/nutanix/kubeflow-manifests"
+##########################################################
+# Language configuration
+##########################################################
+[languages]
+  [languages.en]
+    title = "Kubeflow on NKE"
+    description = "Open-source machine learning platform running on NKE"
+    languageName ="English"
+    # Weight used for sorting.
+    weight = 1
+##########################################################
+# Site Params
+##########################################################
+
+[params]
+  github_repo = "https://github.com/nutanix/kubeflow-manifests"
+  github_subdir = "website"
+  github_project_repo = "https://github.com/nutanix/kubeflow-manifests"
+
+  copyright = "Nutanix"
+  privacy_policy = "https://www.nutanix.com/legal/privacy-statement"
+
+  # Menu title if your navbar has a versions selector to access old versions of your site.
+  # This menu appears only if you have at least one [params.versions] set.
+  version_menu = "Releases"
+  
+  # Flag used in the "version-banner" partial to decide whether to display a 
+  # banner on every page indicating that this is an archived version of the docs.
+  # Set this flag to "true" if you want to display the banner.
+  archived_version = false
+
+  # Uncomment this if your GitHub repo does not have "main" as the default branch,
+  # or specify a new value if you want to reference another branch in your GitHub links
+  github_branch= "main"
+
+  # The version number for the version of the docs represented in this doc set.
+  # Used in the "version-banner" partial to display a version number for the 
+  # current doc set.
+  version = "main"
+
+  # A link to latest version of the docs. Used in the "version-banner" partial to
+  # point people to the main doc site.
+  url_latest_version = "https://nutanix.github.io/kubeflow-manifests/docs"
+
+  # These entries appear in the drop-down menu at the top of the website.
+  [[params.versions]]
+    version = "1.6"
+    githubbranch = "master"
+    url = "https://nutanix.github.io/kubeflow-manifests/docs"
+
+
+  # User interface configuration
+  [params.ui]
+    #  Set to true to disable breadcrumb navigation.
+    breadcrumb_disable = false
+    # Set to true to disable the About link in the site footer
+    footer_about_disable = false
+    # Set to false if you don't want to display a logo (/assets/icons/logo.svg) in the top navbar
+    navbar_logo = true
+    # Set to true if you don't want the top navbar to be translucent when over a `block/cover`, like on the homepage.
+    navbar_translucent_over_cover_disable = false
+    # Enable to show the side bar menu in its compact state.
+    sidebar_menu_compact = false
+    # Set to true to hide the sidebar search box (the top nav search box will still be displayed if search is enabled)
+    sidebar_search_disable = false
+
+      # Adds a H2 section titled "Feedback" to the bottom of each doc. The responses are sent to Google Analytics as events.
+      # This feature depends on [services.googleAnalytics] and will be disabled if "services.googleAnalytics.id" is not set.
+      # If you want this feature, but occasionally need to remove the "Feedback" section from a single page,
+      # add "hide_feedback: true" to the page's front matter.
+      [params.ui.feedback]
+        enable = true
+        # The responses that the user sees after clicking "yes" (the page was helpful) or "no" (the page was not helpful).
+        yes = 'Thank you! <a href="https://github.com/nutanix/kubeflow-manifests/new">Send your feedback to us</a>.'
+        no = 'Sorry to hear that. Please <a href="https://github.com/nutanix/kubeflow-manifests/issues/new">tell us how we can improve</a>.'
+
+      # Adds a reading time to the top of each doc.
+      # If you want this feature, but occasionally need to remove the Reading time from a single page, 
+      # add "hide_readingtime: true" to the page's front matter
+      [params.ui.readingtime]
+        enable = true
+
+  [params.links]
+    # End user relevant links. These will show up on left side of footer and in the community page if you have one.
+    [[params.links.user]]
+      name = "Kubeflow mailing list"
+      url = "https://www.kubeflow.org/docs/about/community/#kubeflow-mailing-list"
+      icon = "fa fa-envelope"
+      desc = "Discussion and help from Kubeflow users"
+    [[params.links.user]]
+      name ="Twitter"
+      url = "https://twitter.com/kubeflow"
+      icon = "fab fa-twitter"
+      desc = "Follow Kubeflow on Twitter"
+    [[params.links.user]]
+      name = "Stack Overflow"
+      url = "https://stackoverflow.com/questions/tagged/kubeflow"
+      icon = "fab fa-stack-overflow"
+      desc = "Practical questions and answers for Kubeflow users"
+    # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
+    [[params.links.developer]]
+      name = "GitHub"
+      url = "https://github.com/nutanix/kubeflow-manifests"
+      icon = "fab fa-github"
+      desc = "Kubeflow on NKE repo"
+    [[params.links.developer]]
+      name = "Slack"
+      url = "https://www.kubeflow.org/docs/about/community/#kubeflow-slack"
+      icon = "fab fa-slack"
+      desc = "Chat with Kubeflow developers"
+    [[params.links.developer]]
+      name = "Kubeflow community calendar"
+      url = "https://www.kubeflow.org/docs/about/community/#kubeflow-community-calendars"
+      icon = "fa fa-calendar"
+      desc = "Upcoming community calls"
