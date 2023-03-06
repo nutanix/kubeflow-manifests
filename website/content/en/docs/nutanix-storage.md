@@ -7,7 +7,7 @@ weight = 5
 
 ## Nutanix Objects in Kubeflow Pipeline
 
-You can use standard s3 boto api to upload and download objects from a Kubeflow Pipeline. See [Nutanix Objects Docs](https://portal.nutanix.com/page/documents/details?targetId=Objects-v3_2:Objects-v3_2) for more details on creating object store and buckets.
+You can use standard s3 boto api to upload and download objects from a Kubeflow Pipeline. See [Nutanix Objects Docs](https://portal.nutanix.com/page/documents/details?targetId=Objects-v3_6:Objects-v3_6) for more details on creating object store and buckets.
 
    ```
    import boto3
@@ -30,7 +30,7 @@ You can use standard s3 boto api to upload and download objects from a Kubeflow 
 
 ## Nutanix Volumes in Kubeflow Pipeline
 
-Nutanix volumes are created with the default storage class configured in the Karbon cluster. See [Default Storage Class](https://portal.nutanix.com/page/documents/details?targetId=Karbon-v2_2:kar-karbon-storage-class-r.html) of Nutanix Karbon for more details about creating storage classes.
+Nutanix volumes are created with the default storage class configured in the NKE cluster. See [Default Storage Class](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-storage-class-r.html) of Nutanix Kubernetes Engine for more details about creating storage classes.
 
    ```
    vop = dsl.VolumeOp(
@@ -42,7 +42,7 @@ Nutanix volumes are created with the default storage class configured in the Kar
 
 ## Nutanix Files in Kubeflow Pipeline
     
-   Create a storage class to dynamically provision Nutanix File shares. See [Files Storage Class](https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:csi-csi-plugin-manage-dynamic-nfs-t.html) of Nutanix Karbon for more details on creating storage classes for dynamic NFS Share provisioning with Nutanix Files.
+   Create a storage class to dynamically provision Nutanix File shares. See [Files Storage Class](https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:csi-csi-plugin-manage-dynamic-nfs-t.html) of Nutanix Kubernetes Engine for more details on creating storage classes for dynamic NFS Share provisioning with Nutanix Files.
    Once storage class is setup, you can use `VolumeOp` operation to create volume on Nutanix Files.
     
    ```

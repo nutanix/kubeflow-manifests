@@ -1,6 +1,6 @@
 +++
 title = "Uninstall Kubeflow"
-description = "How to uninstall Kubeflow from a Nutanix Karbon cluster"
+description = "How to uninstall Kubeflow from a NKE cluster"
 weight = 6
 
 +++

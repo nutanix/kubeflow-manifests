@@ -1,6 +1,6 @@
 +++
-title = "Install Kubeflow on Nutanix Karbon"
-description = "How to deploy Kubeflow on a Nutanix Karbon cluster"
+title = "Install Kubeflow"
+description = "How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster"
 weight = 4
                     
 +++
@@ -8,20 +8,20 @@ weight = 4
 ## Prerequisites
 
 
-* Make sure you first create a Kubernetes cluster using Nutanix Karbon. See [Nutanix Karbon documentation](https://portal.nutanix.com/page/documents/details?targetId=Karbon-v2_2:kar-karbon-deploy-karbon-t.html) at the Nutanix Support Portal. 
+* Make sure you first create a Kubernetes cluster using Nutanix Kubernetes Engine. See [Nutanix Kubernetes Engine documentation](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-deploy-kubernetes-cluster-t.html) at the Nutanix Support Portal. 
 
 * Install [Terraform](https://www.terraform.io/downloads.html) based on your platform
 
 * Install kubectl from [Install Tools](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
-* Download [Kubeconfig](https://portal.nutanix.com/page/documents/details?targetId=Karbon-v2_2:kar-karbon-download-kubeconfig-t.html) of your deployed Karbon cluster. 
+* Download [Kubeconfig](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html) of your deployed NKE cluster. 
 
 
 ## Installing Kubeflow
 
-Do these steps to deploy Kubeflow {{% nutanix/latest-version %}} on your Karbon cluster.
+Do these steps to deploy Kubeflow {{% nutanix/latest-version %}} on your NKE cluster.
 
-1. Download the terraform script to deploy kubeflow on Nutanix Karbon by cloning the Github repository shown.
+1. Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.
 
    ```
    git clone https://github.com/nutanix/karbon-platform-services.git
@@ -35,8 +35,8 @@ Do these steps to deploy Kubeflow {{% nutanix/latest-version %}} on your Karbon 
    prism_central_username = "enter username"
    prism_central_password = "enter password"
    prism_central_endpoint = "enter endpoint_ip_or_host_fqdn"
-   karbon_cluster_name    = "enter karbon_cluster_name"
-   kubeconfig_filename    = "enter karbon_cluster_name-kubectl.cfg"
+   karbon_cluster_name    = "enter NKE_cluster_name"
+   kubeconfig_filename    = "enter NKE_cluster_name-kubectl.cfg"
    kubeflow_version       = "{{% nutanix/latest-version %}}"
    ```
 
@@ -107,9 +107,9 @@ Add the following  under staticPasswords section
    ```
 
 ## Setup a LoadBalancer (Optional)
-  If you already have a load balancer set up for your Karbon cluster, you can skip this step. If you do not wish to
+  If you already have a load balancer set up for your NKE cluster, you can skip this step. If you do not wish to
   expose the kubeflow dashboard to an external load balancer IP, you can also skip this step.
-  If not, you can install the [MetalLB](https://metallb.universe.tf/) load balancer manifests on your Karbon cluster.
+  If not, you can install the [MetalLB](https://metallb.universe.tf/) load balancer manifests on your NKE cluster.
   ```
   $ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/namespace.yaml
   $ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
@@ -140,7 +140,7 @@ There are multiple ways to acces your Kubeflow Central Dashboard:
 - Port Forward: The default way to access Kubeflow Central Dashboard is by using Port-Forward. You can port forward the istio ingress gateway to local port 8080.
     
    ```
-   kubectl --kubeconfig=<karbon_k8s_cluster_kubeconfig_path> port-forward svc/istio-ingressgateway -n istio-system 8080:80
+   kubectl --kubeconfig=<NKE_k8s_cluster_kubeconfig_path> port-forward svc/istio-ingressgateway -n istio-system 8080:80
    ```
     
   You can now access the Kubeflow Central Dashboard at http://localhost:8080. At the Dex login page, enter user credentials that you previously created.
