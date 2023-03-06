@@ -174,36 +174,36 @@ pygmentsStyle = "tango"
       [params.ui.readingtime]
         enable = true
 
-  [params.links]
-    # End user relevant links. These will show up on left side of footer and in the community page if you have one.
-    [[params.links.user]]
-      name = "Kubeflow mailing list"
-      url = "https://www.kubeflow.org/docs/about/community/#kubeflow-mailing-list"
-      icon = "fa fa-envelope"
-      desc = "Discussion and help from Kubeflow users"
-    [[params.links.user]]
-      name ="Twitter"
-      url = "https://twitter.com/kubeflow"
-      icon = "fab fa-twitter"
-      desc = "Follow Kubeflow on Twitter"
-    [[params.links.user]]
-      name = "Stack Overflow"
-      url = "https://stackoverflow.com/questions/tagged/kubeflow"
-      icon = "fab fa-stack-overflow"
-      desc = "Practical questions and answers for Kubeflow users"
-    # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
-    [[params.links.developer]]
-      name = "GitHub"
-      url = "https://github.com/nutanix/kubeflow-manifests"
-      icon = "fab fa-github"
-      desc = "Kubeflow on NKE repo"
-    [[params.links.developer]]
-      name = "Slack"
-      url = "https://www.kubeflow.org/docs/about/community/#kubeflow-slack"
-      icon = "fab fa-slack"
-      desc = "Chat with Kubeflow developers"
-    [[params.links.developer]]
-      name = "Kubeflow community calendar"
-      url = "https://www.kubeflow.org/docs/about/community/#kubeflow-community-calendars"
-      icon = "fa fa-calendar"
-      desc = "Upcoming community calls"
+  # [params.links]
+  #   # End user relevant links. These will show up on left side of footer and in the community page if you have one.
+  #   [[params.links.user]]
+  #     name = "Kubeflow mailing list"
+  #     url = "https://www.kubeflow.org/docs/about/community/#kubeflow-mailing-list"
+  #     icon = "fa fa-envelope"
+  #     desc = "Discussion and help from Kubeflow users"
+  #   [[params.links.user]]
+  #     name ="Twitter"
+  #     url = "https://twitter.com/kubeflow"
+  #     icon = "fab fa-twitter"
+  #     desc = "Follow Kubeflow on Twitter"
+  #   [[params.links.user]]
+  #     name = "Stack Overflow"
+  #     url = "https://stackoverflow.com/questions/tagged/kubeflow"
+  #     icon = "fab fa-stack-overflow"
+  #     desc = "Practical questions and answers for Kubeflow users"
+  #   # Developer relevant links. These will show up on right side of footer and in the community page if you have one.
+  #   [[params.links.developer]]
+  #     name = "GitHub"
+  #     url = "https://github.com/nutanix/kubeflow-manifests"
+  #     icon = "fab fa-github"
+  #     desc = "Kubeflow on NKE repo"
+  #   [[params.links.developer]]
+  #     name = "Slack"
+  #     url = "https://www.kubeflow.org/docs/about/community/#kubeflow-slack"
+  #     icon = "fab fa-slack"
+  #     desc = "Chat with Kubeflow developers"
+  #   [[params.links.developer]]
+  #     name = "Kubeflow community calendar"
+  #     url = "https://www.kubeflow.org/docs/about/community/#kubeflow-community-calendars"
+  #     icon = "fa fa-calendar"
+  #     desc = "Upcoming community calls"
