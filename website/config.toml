@@ -1,7 +1,7 @@
 # Base configuration
 ##########################################################
 # Note: Update base URL for older version  when releasing a new version
-baseURL = "https://nutanix.github.io/kubeflow-manifests/dev"
+baseURL = "https://nutanix.github.io/kubeflow-manifests"
 title = "Kubeflow on NKE"
 description = "Open-source machine learning platform running on NKE"
 
@@ -126,18 +126,23 @@ pygmentsStyle = "tango"
 
   # Uncomment this if your GitHub repo does not have "main" as the default branch,
   # or specify a new value if you want to reference another branch in your GitHub links
-  github_branch= "main"
+  github_branch= "release-v1.7"
 
   # The version number for the version of the docs represented in this doc set.
   # Used in the "version-banner" partial to display a version number for the 
   # current doc set.
-  version = "main"
+  version = "v1.7"
 
   # A link to latest version of the docs. Used in the "version-banner" partial to
   # point people to the main doc site.
   url_latest_version = "https://nutanix.github.io/kubeflow-manifests/docs"
 
   # These entries appear in the drop-down menu at the top of the website.
+  [[params.versions]]
+    version = "v1.7(latest)"
+    githubbranch = "release-v1.7"
+    url = "https://nutanix.github.io/kubeflow-manifests/docs"
+
   [[params.versions]]
     version = "dev"
     githubbranch = "main"
