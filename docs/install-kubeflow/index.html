@@ -1,0 +1,534 @@
+<!doctype html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.105.0">
+<meta name="robots" content="index, follow">
+
+<script type="application/ld+json">
+  {
+      "@context" : "http://schema.org",
+      "@type" : "WebSite",
+      "mainEntityOfPage": {
+           "@type": "WebPage",
+           "@id": "https:\/\/nutanix.github.io\/kubeflow-manifests"
+      },
+      "articleSection" : "docs",
+      "name" : "Install Kubeflow",
+      "headline" : "Install Kubeflow",
+      "description" : "How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "0001",
+      "datePublished": "0001-01-01 00:00:00 \u002b0000 UTC",
+      "dateModified" : "0001-01-01 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/nutanix.github.io\/kubeflow-manifests\/docs\/install-kubeflow\/",
+      "wordCount" : "914",
+      "keywords" : [ "Kubeflow on Nutanix Cloud" ]
+  }
+  </script>
+
+<link rel="shortcut icon" href="/kubeflow-manifests/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/kubeflow-manifests/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/kubeflow-manifests/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/kubeflow-manifests/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="manifest" href="/kubeflow-manifests/favicons/manifest.json">
+<meta name="msapplication-config" content="/kubeflow-manifests/favicons/browserconfig.xml" />
+<meta name="msapplication-TileColor" content="#4279f4">
+<meta name="theme-color" content="#4279f4">
+
+<title>Install Kubeflow | Kubeflow on NKE</title>
+<meta name="description" content="How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster">
+<meta property="og:title" content="Install Kubeflow" />
+<meta property="og:description" content="How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://nutanix.github.io/kubeflow-manifests/docs/install-kubeflow/" /><meta property="article:section" content="docs" />
+
+<meta property="article:modified_time" content="2023-03-07T12:12:20+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
+
+<meta itemprop="name" content="Install Kubeflow">
+<meta itemprop="description" content="How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster">
+<meta itemprop="dateModified" content="2023-03-07T12:12:20+05:30" />
+<meta itemprop="wordCount" content="914">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Install Kubeflow"/>
+<meta name="twitter:description" content="How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster"/>
+
+
+
+
+<link rel="preload" href="/kubeflow-manifests/scss/main.min.d8f4fb8e93a909ab98eed9ea4bc3b6bf422211b7579c4d09467449bf8c5d9ef2.css" as="style">
+<link href="/kubeflow-manifests/scss/main.min.d8f4fb8e93a909ab98eed9ea4bc3b6bf422211b7579c4d09467449bf8c5d9ef2.css" rel="stylesheet" integrity="">
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-GK9XL47N6S"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-GK9XL47N6S', { 'anonymize_ip': false });
+}
+</script>
+
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand-md navbar-dark  td-navbar">
+        <a class="navbar-brand" href="/kubeflow-manifests/">
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">Kubeflow on NKE</span>
+	</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_navbar" aria-controls="main_navbar" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav ml-auto pt-4 pt-md-0 my-2 my-md-1">
+			
+			
+			<li class="nav-item mr-2 mr-lg-4 mt-1 mt-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="/kubeflow-manifests/docs/" ><span>Docs</span></a>
+			</li>
+			
+			<li class="nav-item mr-2 mr-lg-4 mt-1 mt-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/nutanix/kubeflow-manifests" target="_blank" ><i class='fa-brands fa-github pr-2'></i><span>Source</span></a>
+			</li>
+			
+			
+			<li class="nav-item dropdown mt-1 mt-lg-0 mr-2">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	Releases
+</a>
+<div class="dropdown-menu dropdown-menu-md-right dropdown-menu-lg-left" aria-labelledby="navbarDropdownMenuLink">
+	
+	<a class="dropdown-item" href="https://nutanix.github.io/kubeflow-manifests/docs">v1.7(latest)</a>
+	
+	<a class="dropdown-item" href="https://nutanix.github.io/kubeflow-manifests/dev/docs">dev</a>
+	
+</div>
+
+			</li>
+			
+			
+		</ul>
+	</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-section-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-kubeflow-manifestsdocs-li">
+  <a href="/kubeflow-manifests/docs/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-kubeflow-manifestsdocs"><span class="">Documentation</span></a>
+  <ul class="ul-1">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-kubeflow-manifestsdocsinstall-kubeflow-li">
+  <a href="/kubeflow-manifests/docs/install-kubeflow/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsdocsinstall-kubeflow"><span class="td-sidebar-nav-active-item">Install Kubeflow</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-kubeflow-manifestsdocsnutanix-storage-li">
+  <a href="/kubeflow-manifests/docs/nutanix-storage/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsdocsnutanix-storage"><span class="">Integrate with Nutanix Storage</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-kubeflow-manifestsdocsuninstall-kubeflow-li">
+  <a href="/kubeflow-manifests/docs/uninstall-kubeflow/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsdocsuninstall-kubeflow"><span class="">Uninstall Kubeflow</span></a>
+</li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+</div>
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+<a href="https://github.com/nutanix/kubeflow-manifests/tree/release-v1.7/website/content/en/docs/install-kubeflow.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/nutanix/kubeflow-manifests/edit/release-v1.7/website/content/en/docs/install-kubeflow.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/nutanix/kubeflow-manifests/new/release-v1.7/website/content/en/docs/install-kubeflow.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+  <a href="https://github.com/nutanix/kubeflow-manifests/issues/new?title=Install%20Kubeflow" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
+  <a href="https://github.com/nutanix/kubeflow-manifests/issues/new" class="td-page-meta--project-issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create project issue</a>
+  
+</div>
+
+            <div class="td-toc">
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#installing-kubeflow">Installing Kubeflow</a></li>
+    <li><a href="#add-a-new-kubeflow-user">Add a new Kubeflow user</a></li>
+    <li><a href="#setup-a-loadbalancer-optional">Setup a LoadBalancer (Optional)</a></li>
+    <li><a href="#access-kubeflow-central-dashboard">Access Kubeflow Central Dashboard</a></li>
+  </ul>
+</nav>
+      </div>
+    
+            
+
+	
+		
+
+
+
+  
+  
+
+	
+		
+
+
+
+  
+  
+
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="td-breadcrumbs">
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="https://nutanix.github.io/kubeflow-manifests/docs/">Documentation</a>
+  </li>
+  <li class="breadcrumb-item active" aria-current="page">
+    <a href="https://nutanix.github.io/kubeflow-manifests/docs/install-kubeflow/" aria-disabled="true" class="btn-link disabled">Install Kubeflow</a>
+  </li>
+  </ol>
+</nav>
+            
+<div class="td-content">
+	<h1>Install Kubeflow</h1>
+	<div class="lead">How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster</div>
+	<header class="article-meta">
+		
+
+  
+    
+
+
+  
+    
+
+
+  
+
+		
+			<p class="reading-time"><i class="fa-solid fa-clock" aria-hidden="true"></i>&nbsp; 5 minute read &nbsp;</p>
+
+		
+	</header>    
+	<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li>
+<p>Make sure you first create a Kubernetes cluster using Nutanix Kubernetes Engine. See <a href="https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-deploy-kubernetes-cluster-t.html">Nutanix Kubernetes Engine documentation</a> at the Nutanix Support Portal.</p>
+</li>
+<li>
+<p>Install <a href="https://www.terraform.io/downloads.html">Terraform</a> based on your platform</p>
+</li>
+<li>
+<p>Install kubectl from <a href="https://kubernetes.io/docs/tasks/tools/#kubectl">Install Tools</a></p>
+</li>
+<li>
+<p>Download <a href="https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html">Kubeconfig</a> of your deployed NKE cluster.</p>
+</li>
+</ul>
+<h2 id="installing-kubeflow">Installing Kubeflow</h2>
+<p>Do these steps to deploy Kubeflow 1.7.0 on your NKE cluster.</p>
+<ol>
+<li>
+<p>Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone https://github.com/nutanix/karbon-platform-services.git
+</span></span><span class="line"><span class="cl">cd automation/infrastructure/terraform/kcs/install_kubeflow
+</span></span></code></pre></div></li>
+<li>
+<p>Create <code>env.tfvars</code> file in the same folder with the following cluster variables. Override other variables from variables.tf file if required.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">prism_central_username = &#34;enter username&#34;
+</span></span><span class="line"><span class="cl">prism_central_password = &#34;enter password&#34;
+</span></span><span class="line"><span class="cl">prism_central_endpoint = &#34;enter endpoint_ip_or_host_fqdn&#34;
+</span></span><span class="line"><span class="cl">karbon_cluster_name    = &#34;enter NKE_cluster_name&#34;
+</span></span><span class="line"><span class="cl">kubeconfig_filename    = &#34;enter NKE_cluster_name-kubectl.cfg&#34;
+</span></span><span class="line"><span class="cl">kubeflow_version       = &#34;1.7.0&#34;
+</span></span></code></pre></div></li>
+<li>
+<p>Apply terraform commands to deploy Kubeflow in the cluster.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">terraform init
+</span></span><span class="line"><span class="cl">terraform plan --var-file=env.tfvars
+</span></span><span class="line"><span class="cl">terraform apply --var-file=env.tfvars
+</span></span></code></pre></div></li>
+<li>
+<p>Make sure all the pods are running before continuing to the next step.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ kubectl -n kubeflow get pods
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">NAME                                                         READY   STATUS    RESTARTS   AGE
+</span></span><span class="line"><span class="cl">admission-webhook-deployment-65dcd649d8-468g9                1/1     Running   0          3m39s
+</span></span><span class="line"><span class="cl">cache-deployer-deployment-6b78494889-6lfg9                   2/2     Running   1          3m1s
+</span></span><span class="line"><span class="cl">cache-server-bff956474-lm952                                 2/2     Running   0          3m
+</span></span><span class="line"><span class="cl">centraldashboard-6b5fb79878-h9dqn                            1/1     Running   0          3m40s
+</span></span><span class="line"><span class="cl">jupyter-web-app-deployment-75559c6c87-mt4q2                  1/1     Running   0          3m1s
+</span></span><span class="line"><span class="cl">katib-controller-79f44b76bb-t7rzl                            1/1     Running   0          3m
+</span></span><span class="line"><span class="cl">katib-db-manager-6d9857f658-p4786                            1/1     Running   0          2m59s
+</span></span><span class="line"><span class="cl">katib-mysql-586f79b694-2qcl5                                 1/1     Running   0          2m59s
+</span></span><span class="line"><span class="cl">katib-ui-5fdb7869cf-jmssr                                    1/1     Running   0          3m
+</span></span><span class="line"><span class="cl">kfserving-controller-manager-0                               2/2     Running   0          3m15s
+</span></span><span class="line"><span class="cl">kubeflow-pipelines-profile-controller-6cfd6bf9bd-cptgg       1/1     Running   0          2m59s
+</span></span><span class="line"><span class="cl">metacontroller-0                                             1/1     Running   0          3m15s
+</span></span><span class="line"><span class="cl">metadata-envoy-deployment-6756c995c9-gqkbd                   1/1     Running   0          3m
+</span></span><span class="line"><span class="cl">metadata-grpc-deployment-7cb87744c7-4crm9                    2/2     Running   3          3m40s
+</span></span><span class="line"><span class="cl">metadata-writer-6bf5cfd7d8-fgq9f                             2/2     Running   0          3m40s
+</span></span><span class="line"><span class="cl">minio-5b65df66c9-9z7mg                                       2/2     Running   0          2m59s
+</span></span><span class="line"><span class="cl">....
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="add-a-new-kubeflow-user">Add a new Kubeflow user</h2>
+<p>New users are created using the Profile resource. A new namespace is created with the same Profile name. For creating a new user with email <code>user@example.com</code> in a namespace <code>project1</code>, apply the following profile</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cat &lt;&lt;EOF | kubectl apply -f -
+</span></span><span class="line"><span class="cl">apiVersion: kubeflow.org/v1beta1
+</span></span><span class="line"><span class="cl">kind: Profile
+</span></span><span class="line"><span class="cl">metadata:
+</span></span><span class="line"><span class="cl">    name: project1   # replace with the name of profile you want, this will be the user&#39;s namespace name
+</span></span><span class="line"><span class="cl">spec:
+</span></span><span class="line"><span class="cl">    owner:
+</span></span><span class="line"><span class="cl">        kind: User
+</span></span><span class="line"><span class="cl">        name: user2@example.com   # replace with the user email
+</span></span><span class="line"><span class="cl">EOF
+</span></span></code></pre></div><p>If you are using basic authentication, add the user credentials in dex which is the default OpenId Connect provider in Kubeflow. Generate the hash by using bcrypt (available at <a href="https://bcrypt-generator.com">https://bcrypt-generator.com</a>) in the following configmap</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl edit cm dex -o yaml -n auth
+</span></span></code></pre></div><p>Add the following  under staticPasswords section</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">- email: user2@example.com
+</span></span><span class="line"><span class="cl">  hash: &lt;hash&gt;
+</span></span><span class="line"><span class="cl">  username: user2
+</span></span></code></pre></div><h2 id="setup-a-loadbalancer-optional">Setup a LoadBalancer (Optional)</h2>
+<p>If you already have a load balancer set up for your NKE cluster, you can skip this step. If you do not wish to
+expose the kubeflow dashboard to an external load balancer IP, you can also skip this step.
+If not, you can install the <a href="https://metallb.universe.tf/">MetalLB</a> load balancer manifests on your NKE cluster.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/namespace.yaml
+</span></span><span class="line"><span class="cl">$ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
+</span></span></code></pre></div><p>After the manifests have been applied, we need to configure MetalLB with the IP range that it can use to assign external IPs to services of type LoadBalancer. You can find the range from the subnet in Prism Central’s <a href="https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Flow-Networking-Guide:ear-flow-nw-view-subnet-list-pc-r.html">networking and security</a> settings.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">apiVersion: v1
+</span></span><span class="line"><span class="cl">kind: ConfigMap
+</span></span><span class="line"><span class="cl">metadata:
+</span></span><span class="line"><span class="cl">  namespace: metallb-system
+</span></span><span class="line"><span class="cl">  name: config
+</span></span><span class="line"><span class="cl">data:
+</span></span><span class="line"><span class="cl">  config: |
+</span></span><span class="line"><span class="cl">    address-pools:
+</span></span><span class="line"><span class="cl">      - name: default
+</span></span><span class="line"><span class="cl">        protocol: layer2
+</span></span><span class="line"><span class="cl">        addresses:
+</span></span><span class="line"><span class="cl">        - &lt;IP_ADDRESS_RANGE: x.x.x.x-x.x.x.x&gt;
+</span></span></code></pre></div><p>Create a ConfigMap with the following information, substitute the addresses field with your IP address range, and apply it to the cluster.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ kubectl apply -f metallb-configmap.yaml
+</span></span></code></pre></div><h2 id="access-kubeflow-central-dashboard">Access Kubeflow Central Dashboard</h2>
+<p>There are multiple ways to acces your Kubeflow Central Dashboard:</p>
+<ul>
+<li>
+<p>Port Forward: The default way to access Kubeflow Central Dashboard is by using Port-Forward. You can port forward the istio ingress gateway to local port 8080.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl --kubeconfig=&lt;NKE_k8s_cluster_kubeconfig_path&gt; port-forward svc/istio-ingressgateway -n istio-system 8080:80
+</span></span></code></pre></div><p>You can now access the Kubeflow Central Dashboard at http://localhost:8080. At the Dex login page, enter user credentials that you previously created.</p>
+</li>
+<li>
+<p>NodePort: For accessing through NodePort, you need to configure HTTPS. Create a certificate using cert-manager for your Worker node IP in your cluster. Add HTTPS to kubeflow gateway as given in <a href="https://istio.io/latest/docs/tasks/traffic-management/ingress/secure-ingress/">Istio Secure Gateways</a>. Then access your cluster at</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">https://&lt;worknernode-ip&gt;:&lt;https-nodeport&gt;
+</span></span></code></pre></div></li>
+<li>
+<p>LoadBalancer: If you have a LoadBalancer set up (See optional &ldquo;Setup a LoadBalancer&rdquo; section above), you can access the dashboard using the external IP by making the following changes.</p>
+<ul>
+<li>Update Istio Gateway to expose port 443 with HTTPS and make port 80 redirect to 443:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n kubeflow edit gateways.networking.istio.io kubeflow-gateway
+</span></span></code></pre></div>The updated gateway spec should look like:
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">networking.istio.io/v1alpha3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kubeflow-gateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">kubeflow</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">istio</span><span class="p">:</span><span class="w"> </span><span class="l">ingressgateway</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">servers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s1">&#39;*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># Upgrade HTTP to HTTPS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">httpsRedirect</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s1">&#39;*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">https</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">SIMPLE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">privateKey</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/istio/ingressgateway-certs/tls.key</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">serverCertificate</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/istio/ingressgateway-certs/tls.crt</span><span class="w">
+</span></span></span></code></pre></div></li>
+<li>Change the type of the istio-ingressgateway service to LoadBalancer
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n istio-system  patch service istio-ingressgateway -p &#39;{&#34;spec&#34;: {&#34;type&#34;: &#34;LoadBalancer&#34;}}&#39;
+</span></span></code></pre></div>Get the IP address for the <code>LoadBalancer</code>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n istio-system get svc istio-ingressgateway -o jsonpath=&#39;{.status.loadBalancer.ingress[0]}&#39;
+</span></span></code></pre></div>Set the <code>REDIRECT_URL</code> in <code>oidc-authservice-parameters</code> configmap to something like <code>https://x.x.x.x/login/oidc</code> where the <code>x.x.x.x</code> is the IP address of your istio-ingressgateway.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n istio-system edit configmap oidc-authservice-parameters
+</span></span></code></pre></div>Append the same to the <code>redirectURIs</code> list in <code>dex</code> configmap
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n auth edit configmap dex
+</span></span></code></pre></div>Rollout restart authservice and dex
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n istio-system rollout restart statefulset authservice
+</span></span><span class="line"><span class="cl">kubectl -n auth rollout restart deployment dex
+</span></span></code></pre></div>Create a <code>certificate.yaml</code> with the YAML below to create a self-signed certificate
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">apiVersion: cert-manager.io/v1alpha2
+</span></span><span class="line"><span class="cl">kind: Certificate
+</span></span><span class="line"><span class="cl">metadata:
+</span></span><span class="line"><span class="cl">  name: istio-ingressgateway-certs
+</span></span><span class="line"><span class="cl">  namespace: istio-system
+</span></span><span class="line"><span class="cl">spec:
+</span></span><span class="line"><span class="cl">  commonName: istio-ingressgateway.istio-system.svc
+</span></span><span class="line"><span class="cl">  ipAddresses:
+</span></span><span class="line"><span class="cl">    - &lt;ISTIO_INGRESSGATEWAY_IP_ADDRESS: x.x.x.x&gt;
+</span></span><span class="line"><span class="cl">  isCA: true
+</span></span><span class="line"><span class="cl">  issuerRef:
+</span></span><span class="line"><span class="cl">    kind: ClusterIssuer
+</span></span><span class="line"><span class="cl">    name: kubeflow-self-signing-issuer
+</span></span><span class="line"><span class="cl">  secretName: istio-ingressgateway-certs
+</span></span></code></pre></div>Apply <code>certificate.yaml</code> to the <code>istio-system</code> namespace
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n istio-system apply -f certificate.yaml
+</span></span></code></pre></div></li>
+<li>You can now access the kubeflow dashboard by navigating to the istio-ingressgateway external IP e.g. <code>x.x.x.x</code></li>
+</ul>
+</li>
+</ul>
+
+	
+		<style>
+  .feedback--answer {
+    display: inline-block;
+  }
+  .feedback--answer-no {
+    margin-left: 1em;
+  }
+  .feedback--response {
+    display: none;
+    margin-top: 1em;
+  }
+  .feedback--response__visible {
+    display: block;
+  }
+</style>
+<div class="card mt-4 col-12 col-sm-6">
+  <div class="card-body">
+    <h3 class="card-title">Feedback</h3>
+    <p class="card-text">Was this page helpful?</p>
+    <button class="btn btn-primary feedback--answer feedback--answer-yes" style="width: 5rem;">Yes</button>
+    <button class="btn btn-primary feedback--answer feedback--answer-no" style="width: 5rem;">No</button>
+    <p class="feedback--response feedback--response-yes">
+      Thank you! <a href="https://github.com/nutanix/kubeflow-manifests/new">Send your feedback to us</a>.
+    </p>
+    <p class="feedback--response feedback--response-no">
+      Sorry to hear that. Please <a href="https://github.com/nutanix/kubeflow-manifests/issues/new">tell us how we can improve</a>.
+    </p>
+  </div>
+</div>
+<script>
+  const yesButton = document.querySelector('.feedback--answer-yes');
+  const noButton = document.querySelector('.feedback--answer-no');
+  const yesResponse = document.querySelector('.feedback--response-yes');
+  const noResponse = document.querySelector('.feedback--response-no');
+  const disableButtons = () => {
+    yesButton.disabled = true;
+    noButton.disabled = true;
+  };
+  const sendFeedback = (value) => {
+    if (typeof ga !== 'function') return;
+    const args = {
+      command: 'send',
+      hitType: 'event',
+      category: 'Helpful',
+      action: 'click',
+      label: window.location.pathname,
+      value: value
+    };
+    ga(args.command, args.hitType, args.category, args.action, args.label, args.value);
+  };
+  yesButton.addEventListener('click', () => {
+    yesResponse.classList.add('feedback--response__visible');
+    disableButtons();
+    sendFeedback(1);
+  });
+  noButton.addEventListener('click', () => {
+    noResponse.classList.add('feedback--response__visible');
+    disableButtons();
+    sendFeedback(0);
+  });
+</script>
+
+		<br />
+	
+	
+	<div class="text-muted mt-5 pt-3 border-top">
+  Last modified March 7, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/876a85594cec62f96ee61ea27c5e3a62bba7ca08">v1.7 doc release (876a855)</a>
+</div>
+
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark pt-3 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2023 Nutanix | Documentation Distributed under CC BY 4.0</small>
+        <p><small class="ml-1"><a href="https://www.nutanix.com/legal/privacy-statement" target="_blank" rel="noopener">Privacy Policy</a></small></p>
+	
+		
+	
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+      </div>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <script src="/kubeflow-manifests/js/main.min.f59716f37918407a310045c36dfdd830ca3049dc8539e78fc9e5a4d5381c9054.js" integrity="sha256-9ZcW83kYQHoxAEXDbf3YMMowSdyFOeePyeWk1TgckFQ=" crossorigin="anonymous"></script>
+<script src='/kubeflow-manifests/js/tabpane-persist.js'></script>
+
+  </body>
+</html>
