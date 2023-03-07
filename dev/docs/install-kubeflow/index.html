@@ -28,7 +28,7 @@
       "datePublished": "0001-01-01 00:00:00 \u002b0000 UTC",
       "dateModified" : "0001-01-01 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/nutanix.github.io\/kubeflow-manifests\/dev\/docs\/install-kubeflow\/",
-      "wordCount" : "914",
+      "wordCount" : "918",
       "keywords" : [ "Kubeflow on Nutanix Cloud" ]
   }
   </script>
@@ -49,12 +49,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nutanix.github.io/kubeflow-manifests/dev/docs/install-kubeflow/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2023-03-07T15:53:52+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
+<meta property="article:modified_time" content="2023-03-07T23:26:49+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
 
 <meta itemprop="name" content="Install Kubeflow">
 <meta itemprop="description" content="How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster">
-<meta itemprop="dateModified" content="2023-03-07T15:53:52+05:30" />
-<meta itemprop="wordCount" content="914">
+<meta itemprop="dateModified" content="2023-03-07T23:26:49+05:30" />
+<meta itemprop="wordCount" content="918">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Install Kubeflow"/>
 <meta name="twitter:description" content="How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster"/>
@@ -257,6 +257,9 @@ if (!doNotTrack) {
 <p>Install kubectl from <a href="https://kubernetes.io/docs/tasks/tools/#kubectl">Install Tools</a></p>
 </li>
 <li>
+<p>Install <a href="https://github.com/kubernetes-sigs/kustomize/releases/tag/v3.2.0">kustomize version 3.2.0</a></p>
+</li>
+<li>
 <p>Download <a href="https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html">Kubeconfig</a> of your deployed NKE cluster.</p>
 </li>
 </ul>
@@ -265,8 +268,8 @@ if (!doNotTrack) {
 <ol>
 <li>
 <p>Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone https://github.com/nutanix/karbon-platform-services.git
-</span></span><span class="line"><span class="cl">cd automation/infrastructure/terraform/kcs/install_kubeflow
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone https://github.com/nutanix/kubeflow-manifests.git
+</span></span><span class="line"><span class="cl">cd automation/terraform/install_kubeflow
 </span></span></code></pre></div></li>
 <li>
 <p>Create <code>env.tfvars</code> file in the same folder with the following cluster variables. Override other variables from variables.tf file if required.</p>
@@ -494,7 +497,7 @@ If not, you can install the <a href="https://metallb.universe.tf/">MetalLB</a> l
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 7, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/a3bf6e25f14286e68aa75a607f24341e1f1fb66b">remove kf icon from title (#3) (a3bf6e2)</a>
+  Last modified March 7, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/6fa97150ead6bd4442dd2787d1631d602dc48edc">Kubeflow installation manifests (#4) (6fa9715)</a>
 </div>
 
 </div>

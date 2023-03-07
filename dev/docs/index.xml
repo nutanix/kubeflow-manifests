@@ -34,6 +34,9 @@
 &lt;p&gt;Install kubectl from &lt;a href=&#34;https://kubernetes.io/docs/tasks/tools/#kubectl&#34;&gt;Install Tools&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
+&lt;p&gt;Install &lt;a href=&#34;https://github.com/kubernetes-sigs/kustomize/releases/tag/v3.2.0&#34;&gt;kustomize version 3.2.0&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
 &lt;p&gt;Download &lt;a href=&#34;https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html&#34;&gt;Kubeconfig&lt;/a&gt; of your deployed NKE cluster.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -42,8 +45,8 @@
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/nutanix/karbon-platform-services.git
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cd automation/infrastructure/terraform/kcs/install_kubeflow
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/nutanix/kubeflow-manifests.git
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cd automation/terraform/install_kubeflow
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Create &lt;code&gt;env.tfvars&lt;/code&gt; file in the same folder with the following cluster variables. Override other variables from variables.tf file if required.&lt;/p&gt;
