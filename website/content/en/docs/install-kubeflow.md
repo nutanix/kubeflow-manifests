@@ -14,6 +14,8 @@ weight = 4
 
 * Install kubectl from [Install Tools](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
+* Install [kustomize version 3.2.0](https://github.com/kubernetes-sigs/kustomize/releases/tag/v3.2.0)
+
 * Download [Kubeconfig](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html) of your deployed NKE cluster. 
 
 
@@ -24,8 +26,8 @@ Do these steps to deploy Kubeflow {{% nutanix/latest-version %}} on your NKE clu
 1. Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.
 
    ```
-   git clone https://github.com/nutanix/karbon-platform-services.git
-   cd automation/infrastructure/terraform/kcs/install_kubeflow
+   git clone https://github.com/nutanix/kubeflow-manifests.git
+   cd automation/terraform/install_kubeflow
     
    ```
 
