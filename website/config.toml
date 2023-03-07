@@ -1,6 +1,7 @@
 # Base configuration
 ##########################################################
-baseURL = "https://nutanix.github.io/kubeflow-manifests"
+# Note: Update base URL for older version  when releasing a new version
+baseURL = "https://nutanix.github.io/kubeflow-manifests/dev"
 title = "Kubeflow on NKE"
 description = "Open-source machine learning platform running on NKE"
 
