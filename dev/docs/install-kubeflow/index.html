@@ -28,7 +28,7 @@
       "datePublished": "0001-01-01 00:00:00 \u002b0000 UTC",
       "dateModified" : "0001-01-01 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/nutanix.github.io\/kubeflow-manifests\/dev\/docs\/install-kubeflow\/",
-      "wordCount" : "918",
+      "wordCount" : "857",
       "keywords" : [ "Kubeflow on Nutanix Cloud" ]
   }
   </script>
@@ -49,12 +49,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nutanix.github.io/kubeflow-manifests/dev/docs/install-kubeflow/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2023-03-07T23:26:49+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
+<meta property="article:modified_time" content="2023-03-09T14:45:14+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
 
 <meta itemprop="name" content="Install Kubeflow">
 <meta itemprop="description" content="How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster">
-<meta itemprop="dateModified" content="2023-03-07T23:26:49+05:30" />
-<meta itemprop="wordCount" content="918">
+<meta itemprop="dateModified" content="2023-03-09T14:45:14+05:30" />
+<meta itemprop="wordCount" content="857">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Install Kubeflow"/>
 <meta name="twitter:description" content="How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster"/>
@@ -264,7 +264,7 @@ if (!doNotTrack) {
 </li>
 </ul>
 <h2 id="installing-kubeflow">Installing Kubeflow</h2>
-<p>Do these steps to deploy Kubeflow 1.7.0 on your NKE cluster.</p>
+<p>Do these steps to deploy Kubeflow 1.7.0-rc.1 on your NKE cluster.</p>
 <ol>
 <li>
 <p>Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.</p>
@@ -278,7 +278,7 @@ if (!doNotTrack) {
 </span></span><span class="line"><span class="cl">prism_central_endpoint = &#34;enter endpoint_ip_or_host_fqdn&#34;
 </span></span><span class="line"><span class="cl">karbon_cluster_name    = &#34;enter NKE_cluster_name&#34;
 </span></span><span class="line"><span class="cl">kubeconfig_filename    = &#34;enter NKE_cluster_name-kubectl.cfg&#34;
-</span></span><span class="line"><span class="cl">kubeflow_version       = &#34;1.7.0&#34;
+</span></span><span class="line"><span class="cl">kubeflow_version       = &#34;1.7.0-rc.1&#34;
 </span></span></code></pre></div></li>
 <li>
 <p>Apply terraform commands to deploy Kubeflow in the cluster.</p>
@@ -400,13 +400,6 @@ If not, you can install the <a href="https://metallb.universe.tf/">MetalLB</a> l
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n istio-system  patch service istio-ingressgateway -p &#39;{&#34;spec&#34;: {&#34;type&#34;: &#34;LoadBalancer&#34;}}&#39;
 </span></span></code></pre></div>Get the IP address for the <code>LoadBalancer</code>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n istio-system get svc istio-ingressgateway -o jsonpath=&#39;{.status.loadBalancer.ingress[0]}&#39;
-</span></span></code></pre></div>Set the <code>REDIRECT_URL</code> in <code>oidc-authservice-parameters</code> configmap to something like <code>https://x.x.x.x/login/oidc</code> where the <code>x.x.x.x</code> is the IP address of your istio-ingressgateway.
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n istio-system edit configmap oidc-authservice-parameters
-</span></span></code></pre></div>Append the same to the <code>redirectURIs</code> list in <code>dex</code> configmap
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n auth edit configmap dex
-</span></span></code></pre></div>Rollout restart authservice and dex
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n istio-system rollout restart statefulset authservice
-</span></span><span class="line"><span class="cl">kubectl -n auth rollout restart deployment dex
 </span></span></code></pre></div>Create a <code>certificate.yaml</code> with the YAML below to create a self-signed certificate
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">apiVersion: cert-manager.io/v1alpha2
 </span></span><span class="line"><span class="cl">kind: Certificate
@@ -497,7 +490,7 @@ If not, you can install the <a href="https://metallb.universe.tf/">MetalLB</a> l
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 7, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/6fa97150ead6bd4442dd2787d1631d602dc48edc">Kubeflow installation manifests (#4) (6fa9715)</a>
+  Last modified March 9, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/1b769a889fdfb343d94b0de18252b3606380cf04">Update Version and LoadBalancer instructions (#5) (1b769a8)</a>
 </div>
 
 </div>
