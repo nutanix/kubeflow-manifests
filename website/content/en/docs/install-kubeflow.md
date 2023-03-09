@@ -197,19 +197,6 @@ There are multiple ways to acces your Kubeflow Central Dashboard:
     ```
     kubectl -n istio-system get svc istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0]}'
     ```
-    Set the `REDIRECT_URL` in `oidc-authservice-parameters` configmap to something like `https://x.x.x.x/login/oidc` where the `x.x.x.x` is the IP address of your istio-ingressgateway.
-    ```
-    kubectl -n istio-system edit configmap oidc-authservice-parameters
-    ```
-    Append the same to the `redirectURIs` list in `dex` configmap
-    ```
-    kubectl -n auth edit configmap dex
-    ```
-    Rollout restart authservice and dex
-    ```
-    kubectl -n istio-system rollout restart statefulset authservice
-    kubectl -n auth rollout restart deployment dex
-    ```
     Create a `certificate.yaml` with the YAML below to create a self-signed certificate
     ```
     apiVersion: cert-manager.io/v1alpha2
