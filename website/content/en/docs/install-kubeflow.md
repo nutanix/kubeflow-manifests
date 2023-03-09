@@ -14,6 +14,8 @@ weight = 4
 
 * Install kubectl from [Install Tools](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
+* Install [kustomize version 3.2.0](https://github.com/kubernetes-sigs/kustomize/releases/tag/v3.2.0)
+
 * Download [Kubeconfig](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html) of your deployed NKE cluster. 
 
 
@@ -24,8 +26,8 @@ Do these steps to deploy Kubeflow {{% nutanix/latest-version %}} on your NKE clu
 1. Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.
 
    ```
-   git clone https://github.com/nutanix/karbon-platform-services.git
-   cd automation/infrastructure/terraform/kcs/install_kubeflow
+   git clone https://github.com/nutanix/kubeflow-manifests.git
+   cd automation/terraform/install_kubeflow
     
    ```
 
@@ -194,19 +196,6 @@ There are multiple ways to acces your Kubeflow Central Dashboard:
     Get the IP address for the `LoadBalancer`
     ```
     kubectl -n istio-system get svc istio-ingressgateway -o jsonpath='{.status.loadBalancer.ingress[0]}'
-    ```
-    Set the `REDIRECT_URL` in `oidc-authservice-parameters` configmap to something like `https://x.x.x.x/login/oidc` where the `x.x.x.x` is the IP address of your istio-ingressgateway.
-    ```
-    kubectl -n istio-system edit configmap oidc-authservice-parameters
-    ```
-    Append the same to the `redirectURIs` list in `dex` configmap
-    ```
-    kubectl -n auth edit configmap dex
-    ```
-    Rollout restart authservice and dex
-    ```
-    kubectl -n istio-system rollout restart statefulset authservice
-    kubectl -n auth rollout restart deployment dex
     ```
     Create a `certificate.yaml` with the YAML below to create a self-signed certificate
     ```
