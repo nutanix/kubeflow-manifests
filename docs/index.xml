@@ -34,16 +34,19 @@
 &lt;p&gt;Install kubectl from &lt;a href=&#34;https://kubernetes.io/docs/tasks/tools/#kubectl&#34;&gt;Install Tools&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
+&lt;p&gt;Install &lt;a href=&#34;https://github.com/kubernetes-sigs/kustomize/releases/tag/v3.2.0&#34;&gt;kustomize version 3.2.0&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
 &lt;p&gt;Download &lt;a href=&#34;https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html&#34;&gt;Kubeconfig&lt;/a&gt; of your deployed NKE cluster.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;installing-kubeflow&#34;&gt;Installing Kubeflow&lt;/h2&gt;
-&lt;p&gt;Do these steps to deploy Kubeflow 1.7.0 on your NKE cluster.&lt;/p&gt;
+&lt;p&gt;Do these steps to deploy Kubeflow 1.7.0-rc.1 on your NKE cluster.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/nutanix/karbon-platform-services.git
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cd automation/infrastructure/terraform/kcs/install_kubeflow
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone https://github.com/nutanix/kubeflow-manifests.git
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cd automation/terraform/install_kubeflow
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Create &lt;code&gt;env.tfvars&lt;/code&gt; file in the same folder with the following cluster variables. Override other variables from variables.tf file if required.&lt;/p&gt;
@@ -52,7 +55,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;prism_central_endpoint = &amp;#34;enter endpoint_ip_or_host_fqdn&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;karbon_cluster_name    = &amp;#34;enter NKE_cluster_name&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubeconfig_filename    = &amp;#34;enter NKE_cluster_name-kubectl.cfg&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubeflow_version       = &amp;#34;1.7.0&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubeflow_version       = &amp;#34;1.7.0-rc.1&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Apply terraform commands to deploy Kubeflow in the cluster.&lt;/p&gt;
@@ -174,13 +177,6 @@ If not, you can install the &lt;a href=&#34;https://metallb.universe.tf/&#34;&gt
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl -n istio-system  patch service istio-ingressgateway -p &amp;#39;{&amp;#34;spec&amp;#34;: {&amp;#34;type&amp;#34;: &amp;#34;LoadBalancer&amp;#34;}}&amp;#39;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;Get the IP address for the &lt;code&gt;LoadBalancer&lt;/code&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl -n istio-system get svc istio-ingressgateway -o jsonpath=&amp;#39;{.status.loadBalancer.ingress[0]}&amp;#39;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;Set the &lt;code&gt;REDIRECT_URL&lt;/code&gt; in &lt;code&gt;oidc-authservice-parameters&lt;/code&gt; configmap to something like &lt;code&gt;https://x.x.x.x/login/oidc&lt;/code&gt; where the &lt;code&gt;x.x.x.x&lt;/code&gt; is the IP address of your istio-ingressgateway.
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl -n istio-system edit configmap oidc-authservice-parameters
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;Append the same to the &lt;code&gt;redirectURIs&lt;/code&gt; list in &lt;code&gt;dex&lt;/code&gt; configmap
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl -n auth edit configmap dex
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;Rollout restart authservice and dex
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl -n istio-system rollout restart statefulset authservice
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl -n auth rollout restart deployment dex
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;Create a &lt;code&gt;certificate.yaml&lt;/code&gt; with the YAML below to create a self-signed certificate
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apiVersion: cert-manager.io/v1alpha2
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kind: Certificate
