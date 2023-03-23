@@ -34,14 +34,14 @@
 &lt;p&gt;Install kubectl from &lt;a href=&#34;https://kubernetes.io/docs/tasks/tools/#kubectl&#34;&gt;Install Tools&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Install &lt;a href=&#34;https://github.com/kubernetes-sigs/kustomize/releases/tag/v3.2.0&#34;&gt;kustomize version 3.2.0&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Install &lt;a href=&#34;https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.0.1&#34;&gt;kustomize version 5.0.1&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Download &lt;a href=&#34;https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html&#34;&gt;Kubeconfig&lt;/a&gt; of your deployed NKE cluster.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;installing-kubeflow&#34;&gt;Installing Kubeflow&lt;/h2&gt;
-&lt;p&gt;Do these steps to deploy Kubeflow 1.7.0-rc.1 on your NKE cluster.&lt;/p&gt;
+&lt;p&gt;Do these steps to deploy Kubeflow 1.7.0-rc.2 on your NKE cluster.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.&lt;/p&gt;
@@ -55,7 +55,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;prism_central_endpoint = &amp;#34;enter endpoint_ip_or_host_fqdn&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;karbon_cluster_name    = &amp;#34;enter NKE_cluster_name&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubeconfig_filename    = &amp;#34;enter NKE_cluster_name-kubectl.cfg&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubeflow_version       = &amp;#34;1.7.0-rc.1&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubeflow_version       = &amp;#34;1.7.0-rc.2&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Apply terraform commands to deploy Kubeflow in the cluster.&lt;/p&gt;
@@ -90,7 +90,7 @@
 &lt;h2 id=&#34;add-a-new-kubeflow-user&#34;&gt;Add a new Kubeflow user&lt;/h2&gt;
 &lt;p&gt;New users are created using the Profile resource. A new namespace is created with the same Profile name. For creating a new user with email &lt;code&gt;user@example.com&lt;/code&gt; in a namespace &lt;code&gt;project1&lt;/code&gt;, apply the following profile&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;cat &amp;lt;&amp;lt;EOF | kubectl apply -f -
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apiVersion: kubeflow.org/v1beta1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apiVersion: kubeflow.org/v1
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kind: Profile
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;metadata:
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    name: project1   # replace with the name of profile you want, this will be the user&amp;#39;s namespace name
@@ -105,6 +105,8 @@
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;- email: user2@example.com
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  hash: &amp;lt;hash&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  username: user2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Rollout restart dex deployment&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl -n auth rollout restart deployment dex
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;setup-a-loadbalancer-optional&#34;&gt;Setup a LoadBalancer (Optional)&lt;/h2&gt;
 &lt;p&gt;If you already have a load balancer set up for your NKE cluster, you can skip this step. If you do not wish to
 expose the kubeflow dashboard to an external load balancer IP, you can also skip this step.
@@ -178,7 +180,7 @@ If not, you can install the &lt;a href=&#34;https://metallb.universe.tf/&#34;&gt
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;Get the IP address for the &lt;code&gt;LoadBalancer&lt;/code&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl -n istio-system get svc istio-ingressgateway -o jsonpath=&amp;#39;{.status.loadBalancer.ingress[0]}&amp;#39;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;Create a &lt;code&gt;certificate.yaml&lt;/code&gt; with the YAML below to create a self-signed certificate
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apiVersion: cert-manager.io/v1alpha2
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apiVersion: cert-manager.io/v1
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kind: Certificate
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;metadata:
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  name: istio-ingressgateway-certs
