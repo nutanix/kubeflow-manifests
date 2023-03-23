@@ -14,7 +14,7 @@ weight = 4
 
 * Install kubectl from [Install Tools](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
-* Install [kustomize version 3.2.0](https://github.com/kubernetes-sigs/kustomize/releases/tag/v3.2.0)
+* Install [kustomize version 5.0.1](https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.0.1)
 
 * Download [Kubeconfig](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html) of your deployed NKE cluster. 
 
@@ -82,7 +82,7 @@ New users are created using the Profile resource. A new namespace is created wit
 
    ```
    cat <<EOF | kubectl apply -f -
-   apiVersion: kubeflow.org/v1beta1
+   apiVersion: kubeflow.org/v1
    kind: Profile
    metadata:
        name: project1   # replace with the name of profile you want, this will be the user's namespace name
@@ -106,6 +106,12 @@ Add the following  under staticPasswords section
    - email: user2@example.com
      hash: <hash>
      username: user2
+   ```
+
+Rollout restart dex deployment
+
+   ```
+   kubectl -n auth rollout restart deployment dex
    ```
 
 ## Setup a LoadBalancer (Optional)
@@ -199,7 +205,7 @@ There are multiple ways to acces your Kubeflow Central Dashboard:
     ```
     Create a `certificate.yaml` with the YAML below to create a self-signed certificate
     ```
-    apiVersion: cert-manager.io/v1alpha2
+    apiVersion: cert-manager.io/v1
     kind: Certificate
     metadata:
       name: istio-ingressgateway-certs
