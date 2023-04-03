@@ -49,11 +49,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nutanix.github.io/kubeflow-manifests/docs/install-kubeflow/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2023-03-23T14:21:17+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
+<meta property="article:modified_time" content="2023-04-03T11:29:48+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
 
 <meta itemprop="name" content="Install Kubeflow">
 <meta itemprop="description" content="How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster">
-<meta itemprop="dateModified" content="2023-03-23T14:21:17+05:30" />
+<meta itemprop="dateModified" content="2023-04-03T11:29:48+05:30" />
 <meta itemprop="wordCount" content="868">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Install Kubeflow"/>
@@ -266,7 +266,7 @@ if (!doNotTrack) {
 </li>
 </ul>
 <h2 id="installing-kubeflow">Installing Kubeflow</h2>
-<p>Do these steps to deploy Kubeflow 1.7.0-rc.2 on your NKE cluster.</p>
+<p>Do these steps to deploy Kubeflow 1.7.0 on your NKE cluster.</p>
 <ol>
 <li>
 <p>Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.</p>
@@ -280,7 +280,7 @@ if (!doNotTrack) {
 </span></span><span class="line"><span class="cl">prism_central_endpoint = &#34;enter endpoint_ip_or_host_fqdn&#34;
 </span></span><span class="line"><span class="cl">karbon_cluster_name    = &#34;enter NKE_cluster_name&#34;
 </span></span><span class="line"><span class="cl">kubeconfig_filename    = &#34;enter NKE_cluster_name-kubectl.cfg&#34;
-</span></span><span class="line"><span class="cl">kubeflow_version       = &#34;1.7.0-rc.2&#34;
+</span></span><span class="line"><span class="cl">kubeflow_version       = &#34;1.7.0&#34;
 </span></span></code></pre></div></li>
 <li>
 <p>Apply terraform commands to deploy Kubeflow in the cluster.</p>
@@ -494,7 +494,7 @@ If not, you can install the <a href="https://metallb.universe.tf/">MetalLB</a> l
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified March 23, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/bc2a906e4586342249f439286aac499c0ebd451b">Merge branch &#39;main&#39; into release-v1.7 (bc2a906)</a>
+  Last modified April 3, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/dbb64891fc2bee736d791c676852a0f2436ddc98">Merge branch &#39;main&#39; into release-v1.7 (dbb6489)</a>
 </div>
 
 </div>

@@ -41,7 +41,7 @@
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;installing-kubeflow&#34;&gt;Installing Kubeflow&lt;/h2&gt;
-&lt;p&gt;Do these steps to deploy Kubeflow 1.7.0-rc.2 on your NKE cluster.&lt;/p&gt;
+&lt;p&gt;Do these steps to deploy Kubeflow 1.7.0 on your NKE cluster.&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.&lt;/p&gt;
@@ -55,7 +55,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;prism_central_endpoint = &amp;#34;enter endpoint_ip_or_host_fqdn&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;karbon_cluster_name    = &amp;#34;enter NKE_cluster_name&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubeconfig_filename    = &amp;#34;enter NKE_cluster_name-kubectl.cfg&amp;#34;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubeflow_version       = &amp;#34;1.7.0-rc.2&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubeflow_version       = &amp;#34;1.7.0&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Apply terraform commands to deploy Kubeflow in the cluster.&lt;/p&gt;
