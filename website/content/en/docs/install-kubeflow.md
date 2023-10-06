@@ -26,7 +26,7 @@ Do these steps to deploy Kubeflow {{% nutanix/latest-version %}} on your NKE clu
 1. Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.
 
    ```
-   git clone https://github.com/nutanix/kubeflow-manifests.git
+   git clone -b release-v1.7 https://github.com/nutanix/kubeflow-manifests.git && cd kubeflow-manifests
    cd automation/terraform/install_kubeflow
     
    ```
