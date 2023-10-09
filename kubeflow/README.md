@@ -18,7 +18,7 @@
 
 * Configure the object store by replacing the following variables:
     * put object store `accesskey` and `secretkey` in `overlays/ntnx/object-store-secrets.env`
-    * put `objStoreHost` in `pipeline-install-config.env`
+    * put `objStoreHost` in `overlays/ntnx/pipeline-install-config.env`
 
 * Run the following make command from the root of the github repo
 
