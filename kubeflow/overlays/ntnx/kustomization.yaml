@@ -45,3 +45,10 @@ vars:
     apiVersion: v1
   fieldref:
     fieldpath: data.objStoreHost
+- name: kfp-artifact-storage-insecure
+  objref:
+    kind: ConfigMap
+    name: pipeline-install-config
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.insecure
