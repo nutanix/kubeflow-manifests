@@ -23,7 +23,7 @@
 * Run the following make command from the root of the github repo
 
 ```
-make install-kubeflow-nke
+make install-nke-kubeflow
 ```
 
 #### Vanilla Kubeflow
