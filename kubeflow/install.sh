@@ -12,9 +12,9 @@ helpFunction()
 
 while getopts ":v" option; do
     case $option in
-        v ) vanilla_kubeflow=0 ;;
+        v ) vanilla_kubeflow="vanilla_kubeflow" ;;
         ? ) helpFunction ;;
-   esac
+    esac
 done
 
 # Download kubeflow manifests

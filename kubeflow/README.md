@@ -6,7 +6,7 @@
 
 * [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
-* [kustomize](https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.0.3)
+* [kustomize version 5.0.3](https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.0.3)
 
 * Setup [Nutanix Object Store](https://portal.nutanix.com/page/documents/details?targetId=Objects-v4_2:top-intro-c.html) which will be used by kubeflow pipelines (This is not required for vanilla kubeflow)
 
