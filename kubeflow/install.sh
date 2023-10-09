@@ -25,7 +25,7 @@ tar -xvf "$KF_VERSION".tar.gz -C manifests --strip-components=1
 # Remove downloaded tar file
 rm "$KF_VERSION".tar.gz
 
-if [ -z "$vanilla_kubeflow"  ] 
+if [ -z "$vanilla_kubeflow"  ]
 then
     echo "Using nutanix object store"
     # Patch kubeflow pipelines
