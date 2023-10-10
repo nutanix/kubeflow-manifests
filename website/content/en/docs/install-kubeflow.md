@@ -53,13 +53,13 @@ weight = 4
 **Note:** After kubeflow installation, make sure all the pods in following namespaces are running
 
    ```
-    kubectl get pods -n cert-manager
-    kubectl get pods -n istio-system
-    kubectl get pods -n auth
-    kubectl get pods -n knative-eventing
-    kubectl get pods -n knative-serving
-    kubectl get pods -n kubeflow
-    kubectl get pods -n kubeflow-user-example-com
+   kubectl get pods -n cert-manager
+   kubectl get pods -n istio-system
+   kubectl get pods -n auth
+   kubectl get pods -n knative-eventing
+   kubectl get pods -n knative-serving
+   kubectl get pods -n kubeflow
+   kubectl get pods -n kubeflow-user-example-com
    ```
 
 ## Add a new Kubeflow user
