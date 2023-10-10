@@ -64,7 +64,7 @@ weight = 4
 
 ## Add a new Kubeflow user
 
-New users are created using the Profile resource. A new namespace is created with the same Profile name. For creating a new user with email `user@example.com` in a namespace `project1`, apply the following profile
+New users are created using the Profile resource. A new namespace is created with the same Profile name. For creating a new user with email `user2@example.com` in a namespace `project1`, apply the following profile
 
    ```
    cat <<EOF | kubectl apply -f -
@@ -127,7 +127,7 @@ Rollout restart dex deployment
   apiVersion: metallb.io/v1beta1
   kind: L2Advertisement
   metadata:
-    name: example
+    name: kf-l2advertisement
     namespace: metallb-system
   spec:
     ipAddressPools:
