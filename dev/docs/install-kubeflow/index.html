@@ -28,7 +28,7 @@
       "datePublished": "0001-01-01 00:00:00 \u002b0000 UTC",
       "dateModified" : "0001-01-01 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/nutanix.github.io\/kubeflow-manifests\/dev\/docs\/install-kubeflow\/",
-      "wordCount" : "873",
+      "wordCount" : "802",
       "keywords" : [ "Kubeflow on Nutanix Cloud" ]
   }
   </script>
@@ -49,12 +49,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nutanix.github.io/kubeflow-manifests/dev/docs/install-kubeflow/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2023-10-06T17:50:18+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
+<meta property="article:modified_time" content="2023-10-11T14:52:14+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
 
 <meta itemprop="name" content="Install Kubeflow">
 <meta itemprop="description" content="How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster">
-<meta itemprop="dateModified" content="2023-10-06T17:50:18+05:30" />
-<meta itemprop="wordCount" content="873">
+<meta itemprop="dateModified" content="2023-10-11T14:52:14+05:30" />
+<meta itemprop="wordCount" content="802">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Install Kubeflow"/>
 <meta name="twitter:description" content="How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster"/>
@@ -155,8 +155,6 @@ if (!doNotTrack) {
   <a href="/kubeflow-manifests/dev/docs/install-kubeflow/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsdevdocsinstall-kubeflow"><span class="td-sidebar-nav-active-item">Install Kubeflow</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-kubeflow-manifestsdevdocsnutanix-storage-li">
   <a href="/kubeflow-manifests/dev/docs/nutanix-storage/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsdevdocsnutanix-storage"><span class="">Integrate with Nutanix Storage</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-kubeflow-manifestsdevdocsuninstall-kubeflow-li">
-  <a href="/kubeflow-manifests/dev/docs/uninstall-kubeflow/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsdevdocsuninstall-kubeflow"><span class="">Uninstall Kubeflow</span></a>
 </li>
   </ul>
 </li>
@@ -180,9 +178,10 @@ if (!doNotTrack) {
         <nav id="TableOfContents">
   <ul>
     <li><a href="#prerequisites">Prerequisites</a></li>
-    <li><a href="#installing-kubeflow">Installing Kubeflow</a></li>
+    <li><a href="#installing-kubeflow-with-nutanix-object-store">Installing Kubeflow with Nutanix Object Store</a></li>
+    <li><a href="#installing-vanilla-kubeflow">Installing Vanilla Kubeflow</a></li>
     <li><a href="#add-a-new-kubeflow-user">Add a new Kubeflow user</a></li>
-    <li><a href="#setup-a-loadbalancer-optional">Setup a LoadBalancer (Optional)</a></li>
+    <li><a href="#setup-loadbalancer-optional">Setup LoadBalancer (Optional)</a></li>
     <li><a href="#access-kubeflow-central-dashboard">Access Kubeflow Central Dashboard</a></li>
   </ul>
 </nav>
@@ -241,77 +240,67 @@ if (!doNotTrack) {
   
 
 		
-			<p class="reading-time"><i class="fa-solid fa-clock" aria-hidden="true"></i>&nbsp; 5 minute read &nbsp;</p>
+			<p class="reading-time"><i class="fa-solid fa-clock" aria-hidden="true"></i>&nbsp; 4 minute read &nbsp;</p>
 
 		
 	</header>    
 	<h2 id="prerequisites">Prerequisites</h2>
 <ul>
 <li>
-<p>Make sure you first create a Kubernetes cluster using Nutanix Kubernetes Engine. See <a href="https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-deploy-kubernetes-cluster-t.html">Nutanix Kubernetes Engine documentation</a> at the Nutanix Support Portal.</p>
+<p>Create <a href="https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_8:top-deploy-kubernetes-cluster-t.html">Nutanix Kubernetes Engine Cluster</a> (Kubernetes Version 1.25)</p>
 </li>
 <li>
-<p>Install <a href="https://www.terraform.io/downloads.html">Terraform</a> based on your platform</p>
+<p>Install <a href="https://kubernetes.io/docs/tasks/tools/#kubectl">kubectl</a></p>
 </li>
 <li>
-<p>Install kubectl from <a href="https://kubernetes.io/docs/tasks/tools/#kubectl">Install Tools</a></p>
-</li>
-<li>
-<p>Install <a href="https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.0.1">kustomize version 5.0.1</a></p>
+<p>Install <a href="https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.0.3">kustomize version 5.0.3</a></p>
 </li>
 <li>
 <p>Download <a href="https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html">Kubeconfig</a> of your deployed NKE cluster.</p>
 </li>
 </ul>
-<h2 id="installing-kubeflow">Installing Kubeflow</h2>
-<p>Do these steps to deploy Kubeflow 1.7.0 on your NKE cluster.</p>
+<h2 id="installing-kubeflow-with-nutanix-object-store">Installing Kubeflow with Nutanix Object Store</h2>
 <ol>
 <li>
-<p>Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone -b release-v1.7 https://github.com/nutanix/kubeflow-manifests.git &amp;&amp; cd kubeflow-manifests
-</span></span><span class="line"><span class="cl">cd automation/terraform/install_kubeflow
+<p>Clone the kubeflow manifest github repository and checkout release branch of 1.8.0 release.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone -b release-v1.8 https://github.com/nutanix/kubeflow-manifests.git &amp;&amp; cd kubeflow-manifests
 </span></span></code></pre></div></li>
 <li>
-<p>Create <code>env.tfvars</code> file in the same folder with the following cluster variables. Override other variables from variables.tf file if required.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">prism_central_username = &#34;enter username&#34;
-</span></span><span class="line"><span class="cl">prism_central_password = &#34;enter password&#34;
-</span></span><span class="line"><span class="cl">prism_central_endpoint = &#34;enter endpoint_ip_or_host_fqdn&#34;
-</span></span><span class="line"><span class="cl">karbon_cluster_name    = &#34;enter NKE_cluster_name&#34;
-</span></span><span class="line"><span class="cl">kubeconfig_filename    = &#34;enter NKE_cluster_name-kubectl.cfg&#34;
-</span></span><span class="line"><span class="cl">kubeflow_version       = &#34;1.7.0&#34;
-</span></span></code></pre></div></li>
+<p>Setup <a href="https://portal.nutanix.com/page/documents/details?targetId=Objects-v4_2:top-intro-c.html">Nutanix Object Store</a>.</p>
+</li>
 <li>
-<p>Apply terraform commands to deploy Kubeflow in the cluster.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">terraform init
-</span></span><span class="line"><span class="cl">terraform plan --var-file=env.tfvars
-</span></span><span class="line"><span class="cl">terraform apply --var-file=env.tfvars
-</span></span></code></pre></div></li>
+<p>Configure the object store in kubeflow manifests:</p>
+<ul>
+<li>put object store <code>accesskey</code> and <code>secretkey</code> in <code>kubeflow/overlays/ntnx/object-store-secrets.env</code></li>
+<li>put <code>objStoreHost</code> in <code>kubeflow/overlays/ntnx/pipeline-install-config.env</code></li>
+</ul>
+</li>
 <li>
-<p>Make sure all the pods are running before continuing to the next step.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ kubectl -n kubeflow get pods
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">NAME                                                         READY   STATUS    RESTARTS   AGE
-</span></span><span class="line"><span class="cl">admission-webhook-deployment-65dcd649d8-468g9                1/1     Running   0          3m39s
-</span></span><span class="line"><span class="cl">cache-deployer-deployment-6b78494889-6lfg9                   2/2     Running   1          3m1s
-</span></span><span class="line"><span class="cl">cache-server-bff956474-lm952                                 2/2     Running   0          3m
-</span></span><span class="line"><span class="cl">centraldashboard-6b5fb79878-h9dqn                            1/1     Running   0          3m40s
-</span></span><span class="line"><span class="cl">jupyter-web-app-deployment-75559c6c87-mt4q2                  1/1     Running   0          3m1s
-</span></span><span class="line"><span class="cl">katib-controller-79f44b76bb-t7rzl                            1/1     Running   0          3m
-</span></span><span class="line"><span class="cl">katib-db-manager-6d9857f658-p4786                            1/1     Running   0          2m59s
-</span></span><span class="line"><span class="cl">katib-mysql-586f79b694-2qcl5                                 1/1     Running   0          2m59s
-</span></span><span class="line"><span class="cl">katib-ui-5fdb7869cf-jmssr                                    1/1     Running   0          3m
-</span></span><span class="line"><span class="cl">kfserving-controller-manager-0                               2/2     Running   0          3m15s
-</span></span><span class="line"><span class="cl">kubeflow-pipelines-profile-controller-6cfd6bf9bd-cptgg       1/1     Running   0          2m59s
-</span></span><span class="line"><span class="cl">metacontroller-0                                             1/1     Running   0          3m15s
-</span></span><span class="line"><span class="cl">metadata-envoy-deployment-6756c995c9-gqkbd                   1/1     Running   0          3m
-</span></span><span class="line"><span class="cl">metadata-grpc-deployment-7cb87744c7-4crm9                    2/2     Running   3          3m40s
-</span></span><span class="line"><span class="cl">metadata-writer-6bf5cfd7d8-fgq9f                             2/2     Running   0          3m40s
-</span></span><span class="line"><span class="cl">minio-5b65df66c9-9z7mg                                       2/2     Running   0          2m59s
-</span></span><span class="line"><span class="cl">....
+<p>Run the following make command from the root of the github repository.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">make install-nke-kubeflow
 </span></span></code></pre></div></li>
 </ol>
-<h2 id="add-a-new-kubeflow-user">Add a new Kubeflow user</h2>
-<p>New users are created using the Profile resource. A new namespace is created with the same Profile name. For creating a new user with email <code>user@example.com</code> in a namespace <code>project1</code>, apply the following profile</p>
+<h2 id="installing-vanilla-kubeflow">Installing Vanilla Kubeflow</h2>
+<ol>
+<li>
+<p>Clone the kubeflow manifest github repository and checkout release branch of 1.8.0 release.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git clone -b release-v1.8 https://github.com/nutanix/kubeflow-manifests.git &amp;&amp; cd kubeflow-manifests
+</span></span></code></pre></div></li>
+<li>
+<p>Run the following make command from the root of the github repository.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">make install-vanilla-kubeflow
+</span></span></code></pre></div></li>
+</ol>
+<p><strong>Note:</strong> After kubeflow installation, make sure all the pods in following namespaces are running</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl get pods -n cert-manager
+</span></span><span class="line"><span class="cl">kubectl get pods -n istio-system
+</span></span><span class="line"><span class="cl">kubectl get pods -n auth
+</span></span><span class="line"><span class="cl">kubectl get pods -n knative-eventing
+</span></span><span class="line"><span class="cl">kubectl get pods -n knative-serving
+</span></span><span class="line"><span class="cl">kubectl get pods -n kubeflow
+</span></span><span class="line"><span class="cl">kubectl get pods -n kubeflow-user-example-com
+</span></span></code></pre></div><h2 id="add-a-new-kubeflow-user">Add a new Kubeflow user</h2>
+<p>New users are created using the Profile resource. A new namespace is created with the same Profile name. For creating a new user with email <code>user2@example.com</code> in a namespace <code>project1</code>, apply the following profile</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cat &lt;&lt;EOF | kubectl apply -f -
 </span></span><span class="line"><span class="cl">apiVersion: kubeflow.org/v1
 </span></span><span class="line"><span class="cl">kind: Profile
@@ -330,27 +319,34 @@ if (!doNotTrack) {
 </span></span><span class="line"><span class="cl">  username: user2
 </span></span></code></pre></div><p>Rollout restart dex deployment</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n auth rollout restart deployment dex
-</span></span></code></pre></div><h2 id="setup-a-loadbalancer-optional">Setup a LoadBalancer (Optional)</h2>
+</span></span></code></pre></div><h2 id="setup-loadbalancer-optional">Setup LoadBalancer (Optional)</h2>
 <p>If you already have a load balancer set up for your NKE cluster, you can skip this step. If you do not wish to
 expose the kubeflow dashboard to an external load balancer IP, you can also skip this step.
 If not, you can install the <a href="https://metallb.universe.tf/">MetalLB</a> load balancer manifests on your NKE cluster.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/namespace.yaml
-</span></span><span class="line"><span class="cl">$ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.11/config/manifests/metallb-native.yaml
 </span></span></code></pre></div><p>After the manifests have been applied, we need to configure MetalLB with the IP range that it can use to assign external IPs to services of type LoadBalancer. You can find the range from the subnet in Prism Central’s <a href="https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Flow-Networking-Guide:ear-flow-nw-view-subnet-list-pc-r.html">networking and security</a> settings.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">apiVersion: v1
-</span></span><span class="line"><span class="cl">kind: ConfigMap
+<ul>
+<li>Create <code>IPAddressPool</code> custom resource by applying the following manifest to your cluster. Substitute the addresses field with your IP address range.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">apiVersion: metallb.io/v1beta1
+</span></span><span class="line"><span class="cl">kind: IPAddressPool
 </span></span><span class="line"><span class="cl">metadata:
+</span></span><span class="line"><span class="cl">  name: kf-ip-address-pool
 </span></span><span class="line"><span class="cl">  namespace: metallb-system
-</span></span><span class="line"><span class="cl">  name: config
-</span></span><span class="line"><span class="cl">data:
-</span></span><span class="line"><span class="cl">  config: |
-</span></span><span class="line"><span class="cl">    address-pools:
-</span></span><span class="line"><span class="cl">      - name: default
-</span></span><span class="line"><span class="cl">        protocol: layer2
-</span></span><span class="line"><span class="cl">        addresses:
-</span></span><span class="line"><span class="cl">        - &lt;IP_ADDRESS_RANGE: x.x.x.x-x.x.x.x&gt;
-</span></span></code></pre></div><p>Create a ConfigMap with the following information, substitute the addresses field with your IP address range, and apply it to the cluster.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">$ kubectl apply -f metallb-configmap.yaml
+</span></span><span class="line"><span class="cl">spec:
+</span></span><span class="line"><span class="cl">  addresses:
+</span></span><span class="line"><span class="cl">  - &lt;IP_ADDRESS_RANGE: x.x.x.x-x.x.x.x&gt;
+</span></span></code></pre></div><ul>
+<li>Create <code>L2Advertisement</code> custom resource by applying the following manifest to your cluster.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">apiVersion: metallb.io/v1beta1
+</span></span><span class="line"><span class="cl">kind: L2Advertisement
+</span></span><span class="line"><span class="cl">metadata:
+</span></span><span class="line"><span class="cl">  name: kf-l2advertisement
+</span></span><span class="line"><span class="cl">  namespace: metallb-system
+</span></span><span class="line"><span class="cl">spec:
+</span></span><span class="line"><span class="cl">  ipAddressPools:
+</span></span><span class="line"><span class="cl">  - kf-ip-address-pool
 </span></span></code></pre></div><h2 id="access-kubeflow-central-dashboard">Access Kubeflow Central Dashboard</h2>
 <p>There are multiple ways to acces your Kubeflow Central Dashboard:</p>
 <ul>
@@ -369,7 +365,7 @@ If not, you can install the <a href="https://metallb.universe.tf/">MetalLB</a> l
 <li>Update Istio Gateway to expose port 443 with HTTPS and make port 80 redirect to 443:
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n kubeflow edit gateways.networking.istio.io kubeflow-gateway
 </span></span></code></pre></div>The updated gateway spec should look like:
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">networking.istio.io/v1alpha3</span><span class="w">
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">networking.istio.io/v1beta1</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Gateway</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">kubeflow-gateway</span><span class="w">
@@ -377,26 +373,26 @@ If not, you can install the <a href="https://metallb.universe.tf/">MetalLB</a> l
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">selector</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">istio</span><span class="p">:</span><span class="w"> </span><span class="l">ingressgateway</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">servers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">servers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s1">&#39;*&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTP</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># Upgrade HTTP to HTTPS</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">httpsRedirect</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">hosts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">httpsRedirect</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">hosts</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="s1">&#39;*&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">https</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">https</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">number</span><span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">protocol</span><span class="p">:</span><span class="w"> </span><span class="l">HTTPS</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">SIMPLE</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">privateKey</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/istio/ingressgateway-certs/tls.key</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">serverCertificate</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/istio/ingressgateway-certs/tls.crt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">SIMPLE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">privateKey</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/istio/ingressgateway-certs/tls.key</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">serverCertificate</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/istio/ingressgateway-certs/tls.crt</span><span class="w">
 </span></span></span></code></pre></div></li>
 <li>Change the type of the istio-ingressgateway service to LoadBalancer
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n istio-system  patch service istio-ingressgateway -p &#39;{&#34;spec&#34;: {&#34;type&#34;: &#34;LoadBalancer&#34;}}&#39;
@@ -492,7 +488,7 @@ If not, you can install the <a href="https://metallb.universe.tf/">MetalLB</a> l
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified October 6, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/bfa6e43676b09812be2697eb2ce87482323c795f">Merge pull request #11 from nagar-ajay/update_install_instructions (bfa6e43)</a>
+  Last modified October 11, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/8c1d0c13901a6a0b9669564e8067c5a5c21d85f8">Installation docs (#14) (8c1d0c1)</a>
 </div>
 
 </div>
