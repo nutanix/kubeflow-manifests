@@ -8,77 +8,63 @@ weight = 4
 ## Prerequisites
 
 
-* Make sure you first create a Kubernetes cluster using Nutanix Kubernetes Engine. See [Nutanix Kubernetes Engine documentation](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-deploy-kubernetes-cluster-t.html) at the Nutanix Support Portal. 
+* Create [Nutanix Kubernetes Engine Cluster](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_8:top-deploy-kubernetes-cluster-t.html) (Kubernetes Version 1.25)
 
-* Install [Terraform](https://www.terraform.io/downloads.html) based on your platform
+* Install [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
-* Install kubectl from [Install Tools](https://kubernetes.io/docs/tasks/tools/#kubectl)
-
-* Install [kustomize version 5.0.1](https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.0.1)
+* Install [kustomize version 5.0.3](https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.0.3)
 
 * Download [Kubeconfig](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html) of your deployed NKE cluster. 
 
+## Installing Kubeflow with Nutanix Object Store
 
-## Installing Kubeflow
-
-Do these steps to deploy Kubeflow {{% nutanix/latest-version %}} on your NKE cluster.
-
-1. Download the terraform script to deploy kubeflow on NKE by cloning the Github repository shown.
+1. Clone the kubeflow manifest github repository and checkout release branch of {{% nutanix/latest-version %}} release.
 
    ```
-   git clone -b release-v1.7 https://github.com/nutanix/kubeflow-manifests.git && cd kubeflow-manifests
-   cd automation/terraform/install_kubeflow
-    
+   git clone -b release-v1.8 https://github.com/nutanix/kubeflow-manifests.git && cd kubeflow-manifests
    ```
 
-2. Create `env.tfvars` file in the same folder with the following cluster variables. Override other variables from variables.tf file if required.
+2. Setup [Nutanix Object Store](https://portal.nutanix.com/page/documents/details?targetId=Objects-v4_2:top-intro-c.html).
+
+3. Configure the object store in kubeflow manifests:
+
+    * put object store `accesskey` and `secretkey` in `kubeflow/overlays/ntnx/object-store-secrets.env`
+    * put `objStoreHost` in `kubeflow/overlays/ntnx/pipeline-install-config.env`
+
+4. Run the following make command from the root of the github repository.
 
    ```
-   prism_central_username = "enter username"
-   prism_central_password = "enter password"
-   prism_central_endpoint = "enter endpoint_ip_or_host_fqdn"
-   karbon_cluster_name    = "enter NKE_cluster_name"
-   kubeconfig_filename    = "enter NKE_cluster_name-kubectl.cfg"
-   kubeflow_version       = "{{% nutanix/latest-version %}}"
+   make install-nke-kubeflow
    ```
+## Installing Vanilla Kubeflow
 
-3. Apply terraform commands to deploy Kubeflow in the cluster.  
+1. Clone the kubeflow manifest github repository and checkout release branch of {{% nutanix/latest-version %}} release.
 
    ```
-   terraform init
-   terraform plan --var-file=env.tfvars
-   terraform apply --var-file=env.tfvars
+   git clone -b release-v1.8 https://github.com/nutanix/kubeflow-manifests.git && cd kubeflow-manifests
    ```
 
-4. Make sure all the pods are running before continuing to the next step.
+2. Run the following make command from the root of the github repository.
 
    ```
-   $ kubectl -n kubeflow get pods
+   make install-vanilla-kubeflow
+   ```
 
-   NAME                                                         READY   STATUS    RESTARTS   AGE
-   admission-webhook-deployment-65dcd649d8-468g9                1/1     Running   0          3m39s
-   cache-deployer-deployment-6b78494889-6lfg9                   2/2     Running   1          3m1s
-   cache-server-bff956474-lm952                                 2/2     Running   0          3m
-   centraldashboard-6b5fb79878-h9dqn                            1/1     Running   0          3m40s
-   jupyter-web-app-deployment-75559c6c87-mt4q2                  1/1     Running   0          3m1s
-   katib-controller-79f44b76bb-t7rzl                            1/1     Running   0          3m
-   katib-db-manager-6d9857f658-p4786                            1/1     Running   0          2m59s
-   katib-mysql-586f79b694-2qcl5                                 1/1     Running   0          2m59s
-   katib-ui-5fdb7869cf-jmssr                                    1/1     Running   0          3m
-   kfserving-controller-manager-0                               2/2     Running   0          3m15s
-   kubeflow-pipelines-profile-controller-6cfd6bf9bd-cptgg       1/1     Running   0          2m59s
-   metacontroller-0                                             1/1     Running   0          3m15s
-   metadata-envoy-deployment-6756c995c9-gqkbd                   1/1     Running   0          3m
-   metadata-grpc-deployment-7cb87744c7-4crm9                    2/2     Running   3          3m40s
-   metadata-writer-6bf5cfd7d8-fgq9f                             2/2     Running   0          3m40s
-   minio-5b65df66c9-9z7mg                                       2/2     Running   0          2m59s
-   ....
+**Note:** After kubeflow installation, make sure all the pods in following namespaces are running
 
+   ```
+   kubectl get pods -n cert-manager
+   kubectl get pods -n istio-system
+   kubectl get pods -n auth
+   kubectl get pods -n knative-eventing
+   kubectl get pods -n knative-serving
+   kubectl get pods -n kubeflow
+   kubectl get pods -n kubeflow-user-example-com
    ```
 
 ## Add a new Kubeflow user
 
-New users are created using the Profile resource. A new namespace is created with the same Profile name. For creating a new user with email `user@example.com` in a namespace `project1`, apply the following profile
+New users are created using the Profile resource. A new namespace is created with the same Profile name. For creating a new user with email `user2@example.com` in a namespace `project1`, apply the following profile
 
    ```
    cat <<EOF | kubectl apply -f -
@@ -114,33 +100,38 @@ Rollout restart dex deployment
    kubectl -n auth rollout restart deployment dex
    ```
 
-## Setup a LoadBalancer (Optional)
+## Setup LoadBalancer (Optional)
   If you already have a load balancer set up for your NKE cluster, you can skip this step. If you do not wish to
   expose the kubeflow dashboard to an external load balancer IP, you can also skip this step.
   If not, you can install the [MetalLB](https://metallb.universe.tf/) load balancer manifests on your NKE cluster.
   ```
-  $ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/namespace.yaml
-  $ kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.10.2/manifests/metallb.yaml
+  kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.11/config/manifests/metallb-native.yaml
   ```
 
   After the manifests have been applied, we need to configure MetalLB with the IP range that it can use to assign external IPs to services of type LoadBalancer. You can find the range from the subnet in Prism Central’s [networking and security](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Flow-Networking-Guide:ear-flow-nw-view-subnet-list-pc-r.html) settings.
+
+  * Create `IPAddressPool` custom resource by applying the following manifest to your cluster. Substitute the addresses field with your IP address range.
   ```
-  apiVersion: v1
-  kind: ConfigMap
+  apiVersion: metallb.io/v1beta1
+  kind: IPAddressPool
   metadata:
+    name: kf-ip-address-pool
     namespace: metallb-system
-    name: config
-  data:
-    config: |
-      address-pools:
-        - name: default
-          protocol: layer2
-          addresses:
-          - <IP_ADDRESS_RANGE: x.x.x.x-x.x.x.x>
+  spec:
+    addresses:
+    - <IP_ADDRESS_RANGE: x.x.x.x-x.x.x.x>
   ```
-  Create a ConfigMap with the following information, substitute the addresses field with your IP address range, and apply it to the cluster.
+
+  * Create `L2Advertisement` custom resource by applying the following manifest to your cluster.
   ```
-  $ kubectl apply -f metallb-configmap.yaml
+  apiVersion: metallb.io/v1beta1
+  kind: L2Advertisement
+  metadata:
+    name: kf-l2advertisement
+    namespace: metallb-system
+  spec:
+    ipAddressPools:
+    - kf-ip-address-pool
   ```
 
 ## Access Kubeflow Central Dashboard
@@ -166,7 +157,7 @@ There are multiple ways to acces your Kubeflow Central Dashboard:
     ```
     The updated gateway spec should look like:
     ```yaml
-    apiVersion: networking.istio.io/v1alpha3
+    apiVersion: networking.istio.io/v1beta1
     kind: Gateway
     metadata:
       name: kubeflow-gateway
@@ -174,26 +165,26 @@ There are multiple ways to acces your Kubeflow Central Dashboard:
     spec:
       selector:
         istio: ingressgateway
-    servers:
-    - hosts:
+      servers:
+      - hosts:
         - '*'
         port:
-            name: http
-            number: 80
-            protocol: HTTP
+          name: http
+          number: 80
+          protocol: HTTP
         # Upgrade HTTP to HTTPS
         tls:
-            httpsRedirect: true
-    - hosts:
+          httpsRedirect: true
+      - hosts:
         - '*'
         port:
-            name: https
-            number: 443
-            protocol: HTTPS
+          name: https
+          number: 443
+          protocol: HTTPS
         tls:
-            mode: SIMPLE
-            privateKey: /etc/istio/ingressgateway-certs/tls.key
-            serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
+          mode: SIMPLE
+          privateKey: /etc/istio/ingressgateway-certs/tls.key
+          serverCertificate: /etc/istio/ingressgateway-certs/tls.crt
     ```
   - Change the type of the istio-ingressgateway service to LoadBalancer
     ```
