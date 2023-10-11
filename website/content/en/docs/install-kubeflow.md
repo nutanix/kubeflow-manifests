@@ -8,7 +8,7 @@ weight = 4
 ## Prerequisites
 
 
-* Create [Nutanix Kubernetes Engine Cluster](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_8:top-deploy-kubernetes-cluster-t.html) (NKE Version 2.8)
+* Create [Nutanix Kubernetes Engine Cluster](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_8:top-deploy-kubernetes-cluster-t.html) (Kubernetes Version 1.25)
 
 * Install [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
