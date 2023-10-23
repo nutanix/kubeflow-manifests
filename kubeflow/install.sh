@@ -29,9 +29,9 @@ if [ -z "$vanilla_kubeflow"  ]
 then
     echo "Using nutanix object store"
     # Patch kubeflow pipelines
-    cp overlays/pipeline-kustomization.yaml manifests/apps/pipeline/upstream/env/cert-manager/platform-agnostic-multi-user/kustomization.yaml
+    cp overlays/pipeline/pipeline-kustomization.yaml manifests/apps/pipeline/upstream/env/cert-manager/platform-agnostic-multi-user/kustomization.yaml
     mkdir -p manifests/apps/pipeline/upstream/env/ntnx
-    cp -r overlays/ntnx manifests/apps/pipeline/upstream/env
+    cp -r overlays/pipeline/ntnx manifests/apps/pipeline/upstream/env
 fi
 
 # Install kubeflow
