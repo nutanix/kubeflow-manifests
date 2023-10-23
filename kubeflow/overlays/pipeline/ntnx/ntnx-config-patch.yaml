@@ -30,6 +30,11 @@ spec:
                 configMapKeyRef:
                   name: pipeline-install-config
                   key: objStoreHost
+            - name: AWS_REGION
+              valueFrom:
+                configMapKeyRef:
+                  name: pipeline-install-config
+                  key: objStoreRegion
 ---
 apiVersion: apps/v1
 kind: Deployment
