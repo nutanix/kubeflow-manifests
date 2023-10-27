@@ -49,8 +49,8 @@
 &lt;li&gt;
 &lt;p&gt;Configure the object store in kubeflow manifests:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;put object store &lt;code&gt;accesskey&lt;/code&gt; and &lt;code&gt;secretkey&lt;/code&gt; in &lt;code&gt;kubeflow/overlays/ntnx/object-store-secrets.env&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;put &lt;code&gt;objStoreHost&lt;/code&gt; in &lt;code&gt;kubeflow/overlays/ntnx/pipeline-install-config.env&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;put object store &lt;code&gt;accesskey&lt;/code&gt; and &lt;code&gt;secretkey&lt;/code&gt; in &lt;code&gt;kubeflow/overlays/pipeline/ntnx/object-store-secrets.env&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;put &lt;code&gt;objStoreHost&lt;/code&gt; in &lt;code&gt;kubeflow/overlays/pipeline/ntnx/pipeline-install-config.env&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;

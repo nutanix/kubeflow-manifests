@@ -49,11 +49,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nutanix.github.io/kubeflow-manifests/dev/docs/install-kubeflow/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2023-10-11T14:52:14+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
+<meta property="article:modified_time" content="2023-10-27T18:27:26+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
 
 <meta itemprop="name" content="Install Kubeflow">
 <meta itemprop="description" content="How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster">
-<meta itemprop="dateModified" content="2023-10-11T14:52:14+05:30" />
+<meta itemprop="dateModified" content="2023-10-27T18:27:26+05:30" />
 <meta itemprop="wordCount" content="802">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Install Kubeflow"/>
@@ -271,8 +271,8 @@ if (!doNotTrack) {
 <li>
 <p>Configure the object store in kubeflow manifests:</p>
 <ul>
-<li>put object store <code>accesskey</code> and <code>secretkey</code> in <code>kubeflow/overlays/ntnx/object-store-secrets.env</code></li>
-<li>put <code>objStoreHost</code> in <code>kubeflow/overlays/ntnx/pipeline-install-config.env</code></li>
+<li>put object store <code>accesskey</code> and <code>secretkey</code> in <code>kubeflow/overlays/pipeline/ntnx/object-store-secrets.env</code></li>
+<li>put <code>objStoreHost</code> in <code>kubeflow/overlays/pipeline/ntnx/pipeline-install-config.env</code></li>
 </ul>
 </li>
 <li>
@@ -488,7 +488,7 @@ If not, you can install the <a href="https://metallb.universe.tf/">MetalLB</a> l
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified October 11, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/8c1d0c13901a6a0b9669564e8067c5a5c21d85f8">Installation docs (#14) (8c1d0c1)</a>
+  Last modified October 27, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/2a5f927a9764e03cbbe408f42833536ba18c4df3">Image pull using docker credentials support  (#17) (2a5f927)</a>
 </div>
 
 </div>
