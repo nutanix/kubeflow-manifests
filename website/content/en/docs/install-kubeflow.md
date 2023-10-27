@@ -28,8 +28,8 @@ weight = 4
 
 3. Configure the object store in kubeflow manifests:
 
-    * put object store `accesskey` and `secretkey` in `kubeflow/overlays/ntnx/object-store-secrets.env`
-    * put `objStoreHost` in `kubeflow/overlays/ntnx/pipeline-install-config.env`
+    * put object store `accesskey` and `secretkey` in `kubeflow/overlays/pipeline/ntnx/object-store-secrets.env`
+    * put `objStoreHost` in `kubeflow/overlays/pipeline/ntnx/pipeline-install-config.env`
 
 4. Run the following make command from the root of the github repository.
 
