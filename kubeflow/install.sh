@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KF_VERSION=v1.8.0-rc.1
+KF_VERSION=v1.8.0-rc.4
 
 helpFunction()
 {
@@ -61,3 +61,9 @@ while ! kustomize build manifests/example  | kubectl apply -f -; do echo "Retryi
 
 # Remove kubeflow manifests
 rm -rf manifests
+
+if [ -n "$use_docker_creds"  ]
+then
+    kubectl create secret docker-registry kf-docker-cred --docker-server=$DOCKER_SERVER --docker-username=$DOCKER_USERNAME --docker-password=$DOCKER_PASSWORD --docker-email=$DOCKER_EMAIL -n kubeflow-user-example-com
+    kubectl patch serviceaccount default -p '{"imagePullSecrets": [{"name": "kf-docker-cred"}]}' -n kubeflow-user-example-com
+fi
