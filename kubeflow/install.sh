@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KF_VERSION=v1.8.0-rc.5
+KF_VERSION=v1.8.0
 
 helpFunction()
 {
