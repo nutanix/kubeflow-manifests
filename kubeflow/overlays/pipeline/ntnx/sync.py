@@ -407,6 +407,8 @@ def server_factory(visualization_server_image,
                 "data": {
                     "accesskey": minio_access_key,
                     "secretkey": minio_secret_key,
+                    "region": base64.b64encode(bytes(minio_service_region, 'utf-8')).decode('utf-8'),
+                    "endpoint": base64.b64encode(bytes(minio_service_host, 'utf-8')).decode('utf-8'),
                 },
             })
 
