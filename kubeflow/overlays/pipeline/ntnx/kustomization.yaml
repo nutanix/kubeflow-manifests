@@ -27,6 +27,10 @@ configMapGenerator:
   behavior: replace
   files:
   - viewer-pod-template.json
+- name: kubeflow-pipelines-profile-controller-code
+  behavior: replace
+  files:
+  - sync.py
 
 secretGenerator:
 - name: mlpipeline-minio-artifact
@@ -56,3 +60,16 @@ vars:
     apiVersion: v1
   fieldref:
     fieldpath: data.insecure
+
+images:
+  - name: gcr.io/ml-pipeline/api-server
+    newName: quay.io/ajaynagar/kubeflow-ntnx/kfp-backend
+    newTag: 2.0.3
+
+  - name: gcr.io/ml-pipeline/frontend
+    newName: quay.io/ajaynagar/kubeflow-ntnx/kfp-frontend
+    newTag: 2.0.3
+
+  - name: gcr.io/ml-pipeline/metadata-writer
+    newName: quay.io/ajaynagar/kubeflow-ntnx/kfp-metadata-writer
+    newTag: 2.0.3
