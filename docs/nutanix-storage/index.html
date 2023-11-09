@@ -28,7 +28,7 @@
       "datePublished": "0001-01-01 00:00:00 \u002b0000 UTC",
       "dateModified" : "0001-01-01 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/nutanix.github.io\/kubeflow-manifests\/docs\/nutanix-storage\/",
-      "wordCount" : "415",
+      "wordCount" : "233",
       "keywords" : [ "Kubeflow on Nutanix Cloud" ]
   }
   </script>
@@ -49,12 +49,12 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nutanix.github.io/kubeflow-manifests/docs/nutanix-storage/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2023-10-06T17:57:56+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
+<meta property="article:modified_time" content="2023-11-09T15:41:43+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
 
 <meta itemprop="name" content="Integrate with Nutanix Storage">
 <meta itemprop="description" content="How to integrate Nutanix Storage in Kubeflow">
-<meta itemprop="dateModified" content="2023-10-06T17:57:56+05:30" />
-<meta itemprop="wordCount" content="415">
+<meta itemprop="dateModified" content="2023-11-09T15:41:43+05:30" />
+<meta itemprop="wordCount" content="233">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Integrate with Nutanix Storage"/>
 <meta name="twitter:description" content="How to integrate Nutanix Storage in Kubeflow"/>
@@ -123,7 +123,9 @@ if (!doNotTrack) {
 </a>
 <div class="dropdown-menu dropdown-menu-md-right dropdown-menu-lg-left" aria-labelledby="navbarDropdownMenuLink">
 	
-	<a class="dropdown-item" href="https://nutanix.github.io/kubeflow-manifests/docs">v1.7(latest)</a>
+	<a class="dropdown-item" href="https://nutanix.github.io/kubeflow-manifests/docs">v1.8(latest)</a>
+	
+	<a class="dropdown-item" href="https://nutanix.github.io/kubeflow-manifests/v1.7/docs">v1.7</a>
 	
 	<a class="dropdown-item" href="https://nutanix.github.io/kubeflow-manifests/dev/docs">dev</a>
 	
@@ -157,8 +159,6 @@ if (!doNotTrack) {
   <a href="/kubeflow-manifests/docs/install-kubeflow/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsdocsinstall-kubeflow"><span class="">Install Kubeflow</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-kubeflow-manifestsdocsnutanix-storage-li">
   <a href="/kubeflow-manifests/docs/nutanix-storage/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsdocsnutanix-storage"><span class="td-sidebar-nav-active-item">Integrate with Nutanix Storage</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-kubeflow-manifestsdocsuninstall-kubeflow-li">
-  <a href="/kubeflow-manifests/docs/uninstall-kubeflow/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-kubeflow-manifestsdocsuninstall-kubeflow"><span class="">Uninstall Kubeflow</span></a>
 </li>
   </ul>
 </li>
@@ -170,9 +170,9 @@ if (!doNotTrack) {
           <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
             
 <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
-<a href="https://github.com/nutanix/kubeflow-manifests/tree/release-v1.7/website/content/en/docs/nutanix-storage.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
-  <a href="https://github.com/nutanix/kubeflow-manifests/edit/release-v1.7/website/content/en/docs/nutanix-storage.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
-  <a href="https://github.com/nutanix/kubeflow-manifests/new/release-v1.7/website/content/en/docs/nutanix-storage.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
+<a href="https://github.com/nutanix/kubeflow-manifests/tree/release-v1.8/website/content/en/docs/nutanix-storage.md" class="td-page-meta--view" target="_blank" rel="noopener"><i class="fa-solid fa-file-lines fa-fw"></i> View page source</a>
+  <a href="https://github.com/nutanix/kubeflow-manifests/edit/release-v1.8/website/content/en/docs/nutanix-storage.md" class="td-page-meta--edit" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Edit this page</a>
+  <a href="https://github.com/nutanix/kubeflow-manifests/new/release-v1.8/website/content/en/docs/nutanix-storage.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" class="td-page-meta--child" target="_blank" rel="noopener"><i class="fa-solid fa-pen-to-square fa-fw"></i> Create child page</a>
   <a href="https://github.com/nutanix/kubeflow-manifests/issues/new?title=Integrate%20with%20Nutanix%20Storage" class="td-page-meta--issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create documentation issue</a>
   <a href="https://github.com/nutanix/kubeflow-manifests/issues/new" class="td-page-meta--project-issue" target="_blank" rel="noopener"><i class="fa-solid fa-list-check fa-fw"></i> Create project issue</a>
   
@@ -247,7 +247,7 @@ if (!doNotTrack) {
 		
 	</header>    
 	<h2 id="nutanix-objects-in-kubeflow-pipeline">Nutanix Objects in Kubeflow Pipeline</h2>
-<p>You can use standard s3 boto api to upload and download objects from a Kubeflow Pipeline. See <a href="https://portal.nutanix.com/page/documents/details?targetId=Objects-v3_6:Objects-v3_6">Nutanix Objects Docs</a> for more details on creating object store and buckets.</p>
+<p>You can use standard s3 boto api to upload and download objects from a Kubeflow Pipeline. See <a href="https://portal.nutanix.com/page/documents/details?targetId=Objects-v4_2:Objects-v4_2">Nutanix Objects Docs</a> for more details on creating object store and buckets.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">import boto3
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">bucket_name=&#34;ml-pipeline-storage&#34;
@@ -265,7 +265,7 @@ if (!doNotTrack) {
 </span></span><span class="line"><span class="cl">                 verify=False)
 </span></span><span class="line"><span class="cl">response = s3_client.upload_file(f&#39;./test_upload_data.txt&#39;, bucket_name, object_name)
 </span></span></code></pre></div><h2 id="nutanix-volumes-in-kubeflow-pipeline">Nutanix Volumes in Kubeflow Pipeline</h2>
-<p>Nutanix volumes are created with the default storage class configured in the NKE cluster. See <a href="https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-storage-class-r.html">Default Storage Class</a> of Nutanix Kubernetes Engine for more details about creating storage classes.</p>
+<p>Nutanix volumes are created with the default storage class configured in the NKE cluster. See <a href="https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_8:top-storage-class-r.html">Default Storage Class</a> of Nutanix Kubernetes Engine for more details about creating storage classes.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vop = dsl.VolumeOp(
 </span></span><span class="line"><span class="cl">   name=&#34;Create a volume to share data between stages on Nutanix Volumes&#34;,
 </span></span><span class="line"><span class="cl">   resource_name=&#34;data-volume&#34;,
@@ -281,42 +281,9 @@ Once storage class is setup, you can use <code>VolumeOp</code> operation to crea
 </span></span><span class="line"><span class="cl">   modes=dsl.VOLUME_MODE_RWM,
 </span></span><span class="line"><span class="cl">   storage_class=&#34;files-sc&#34;)
 </span></span></code></pre></div><h2 id="using-nutanix-objects-as-an-artifact-store">Using Nutanix Objects as an artifact store</h2>
-<p>In order to use Nutanix Objects as an underlying artifact store, we need to edit the <code>workflow-controller-configmap</code> ConfigMap in the <code>kubeflow</code> namespace. See <a href="https://portal.nutanix.com/page/documents/details?targetId=Objects-v3_2:Objects-v3_2">Nutanix Objects Docs</a> for more details on creating object store and buckets.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n kubeflow edit configmap workflow-controller-configmap 
-</span></span></code></pre></div><p>In the ConfigMap, we need to modify the s3 config with the Nutanix Objects config:</p>
-<ul>
-<li>endpoint: This is endpoint for Nutanix Objects store</li>
-<li>bucket: This is the name of the Objects store bucket</li>
-<li>accessKeySecret: reference to the access key ID in kubernetes secret for Objects store</li>
-<li>secretKeySecret: reference to the secret access key in kubernetes secret for Objects store</li>
-</ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">    s3:
-</span></span><span class="line"><span class="cl">      endpoint: &#34;x.x.x.x&#34;
-</span></span><span class="line"><span class="cl">      bucket: &#34;ml-pipeline-storage&#34;
-</span></span><span class="line"><span class="cl">      keyFormat: &#34;artifacts/{{workflow.name}}/{{pod.name}}&#34;
-</span></span><span class="line"><span class="cl">      # insecure will disable TLS. Primarily used for minio installs not configured with TLS
-</span></span><span class="line"><span class="cl">      insecure: true
-</span></span><span class="line"><span class="cl">      accessKeySecret:
-</span></span><span class="line"><span class="cl">        name: mlpipeline-ntnx-objects-artifact
-</span></span><span class="line"><span class="cl">        key: object_store_access_key_id
-</span></span><span class="line"><span class="cl">      secretKeySecret:
-</span></span><span class="line"><span class="cl">        name: mlpipeline-ntnx-objects-artifact
-</span></span><span class="line"><span class="cl">        key: object_store_secret_access_key
-</span></span></code></pre></div><p>We also need to create the secret that is being referenced in the ConfigMap above</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">apiVersion: v1
-</span></span><span class="line"><span class="cl">kind: Secret
-</span></span><span class="line"><span class="cl">metadata:
-</span></span><span class="line"><span class="cl">  name: mlpipeline-ntnx-objects-artifact
-</span></span><span class="line"><span class="cl">stringData:
-</span></span><span class="line"><span class="cl">  object_store_access_key_id: &lt;ACCESS_KEY_ID&gt;
-</span></span><span class="line"><span class="cl">  object_store_secret_access_key: &lt;SECRET_ACCESS_KEY&gt;
-</span></span><span class="line"><span class="cl">  region: us-east-1
-</span></span></code></pre></div><p>After creating the secret we need to deploy the secret in the user namespace.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">kubectl -n kubeflow-user-example-com apply -f mlpipeline-ntnx-objects-artifact-secret.yaml 
-</span></span></code></pre></div><p><strong>Note</strong>: installing this secret in kubeflow namespace does not work, it has be in present in user&rsquo;s namespace</p>
+<p>In order to use Nutanix Objects as an underlying artifact store, install the kubeflow with Nutanix object store.</p>
 <p><img src="../images/objects_browser.png" alt="objects_browser"></p>
-<p>To verify this is working correctly, you can check Nutanix Objects browser to see if your artifacts are created and show
-up inside your buckets.</p>
+<p>To verify this is working correctly, you can check Nutanix Objects browser to see if your artifacts are created and show up inside your buckets.</p>
 
 	
 		<style>
@@ -385,7 +352,7 @@ up inside your buckets.</p>
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified October 6, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/3902e6ea64261c393c696fd92aa53a80760b8444">Merge branch &#39;main&#39; into release-v1.7 (3902e6e)</a>
+  Last modified November 9, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/2fc42188495ab9a442269975983f4729c6807682">configs for 1.8 release (2fc4218)</a>
 </div>
 
 </div>
