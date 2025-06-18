@@ -14,6 +14,7 @@ weight = 4
 
 * Install [kustomize version 5.4.3](https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.4.3)
 
+* Connect to the kubernetes cluster by downloading kubeconfig from NKP UI Dashboard
 
 ## Installing Kubeflow with Nutanix Object Store
 
