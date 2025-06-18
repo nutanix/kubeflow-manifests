@@ -3,13 +3,13 @@ kind: Kustomization
 namespace: kubeflow
 
 bases:
-  - ../../base/installs/multi-user
-  - ../../base/metadata/base
-  - ../../base/metadata/options/istio
-  - ../../third-party/argo/installs/cluster
-  - ../../third-party/mysql/base
-  - ../../third-party/mysql/options/istio
-  - ../../third-party/metacontroller/base
+- ../../third-party/metacontroller/base
+- ../../base/installs/multi-user
+- ../../base/metadata/base
+- ../../base/metadata/options/istio
+- ../../third-party/argo/installs/cluster
+- ../../third-party/mysql/base
+- ../../third-party/mysql/options/istio
 
 generatorOptions:
   # mlpipeline-minio-artifact needs to be referred by exact name
@@ -42,8 +42,10 @@ patchesStrategicMerge:
 # Identifier for application manager to apply ownerReference.
 # The ownerReference ensures the resources get garbage collected
 # when application is deleted.
-commonLabels:
-  application-crd-id: kubeflow-pipelines
+labels:
+- includeSelectors: true
+  pairs:
+    application-crd-id: kubeflow-pipelines
 
 vars:
 - name: kfp-artifact-storage-endpoint
@@ -60,16 +62,3 @@ vars:
     apiVersion: v1
   fieldref:
     fieldpath: data.insecure
-
-images:
-  - name: gcr.io/ml-pipeline/api-server
-    newName: quay.io/ajaynagar/kubeflow-ntnx/kfp-backend
-    newTag: 2.0.3
-
-  - name: gcr.io/ml-pipeline/frontend
-    newName: quay.io/ajaynagar/kubeflow-ntnx/kfp-frontend
-    newTag: 2.0.3
-
-  - name: gcr.io/ml-pipeline/metadata-writer
-    newName: quay.io/ajaynagar/kubeflow-ntnx/kfp-metadata-writer
-    newTag: 2.0.3

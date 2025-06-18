@@ -1,5 +1,5 @@
 +++
 title = "Documentation"
-description = "Kubeflow on Nutanix Kubernetes Engine(NKE)"
+description = "Kubeflow on Nutanix Kubernetes Platform(NKP)"
 weight = 20
 +++

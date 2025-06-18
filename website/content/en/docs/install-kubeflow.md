@@ -1,6 +1,6 @@
 +++
 title = "Install Kubeflow"
-description = "How to deploy Kubeflow on a Nutanix Kubernetes Engine(NKE) cluster"
+description = "How to deploy Kubeflow on a Nutanix Kubernetes Platform(NKP) cluster"
 weight = 4
                     
 +++
@@ -8,13 +8,12 @@ weight = 4
 ## Prerequisites
 
 
-* Create [Nutanix Kubernetes Engine Cluster](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_8:top-deploy-kubernetes-cluster-t.html) (Kubernetes Version 1.25)
+* Create [Nutanix Kubernetes Platform Cluster](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Platform-v2_15:top-get-started-nkp-t.html) (Kubernetes Version 1.32)
 
 * Install [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 
-* Install [kustomize version 5.0.3](https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.0.3)
+* Install [kustomize version 5.4.3](https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.4.3)
 
-* Download [Kubeconfig](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html) of your deployed NKE cluster. 
 
 ## Installing Kubeflow with Nutanix Object Store
 
@@ -34,7 +33,7 @@ weight = 4
 4. Run the following make command from the root of the github repository.
 
    ```
-   make install-nke-kubeflow
+   make install-nkp-kubeflow
    ```
 ## Installing Vanilla Kubeflow
 
@@ -100,46 +99,13 @@ Rollout restart dex deployment
    kubectl -n auth rollout restart deployment dex
    ```
 
-## Setup LoadBalancer (Optional)
-  If you already have a load balancer set up for your NKE cluster, you can skip this step. If you do not wish to
-  expose the kubeflow dashboard to an external load balancer IP, you can also skip this step.
-  If not, you can install the [MetalLB](https://metallb.universe.tf/) load balancer manifests on your NKE cluster.
-  ```
-  kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.11/config/manifests/metallb-native.yaml
-  ```
-
-  After the manifests have been applied, we need to configure MetalLB with the IP range that it can use to assign external IPs to services of type LoadBalancer. You can find the range from the subnet in Prism Central’s [networking and security](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Flow-Networking-Guide:ear-flow-nw-view-subnet-list-pc-r.html) settings.
-
-  * Create `IPAddressPool` custom resource by applying the following manifest to your cluster. Substitute the addresses field with your IP address range.
-  ```
-  apiVersion: metallb.io/v1beta1
-  kind: IPAddressPool
-  metadata:
-    name: kf-ip-address-pool
-    namespace: metallb-system
-  spec:
-    addresses:
-    - <IP_ADDRESS_RANGE: x.x.x.x-x.x.x.x>
-  ```
-
-  * Create `L2Advertisement` custom resource by applying the following manifest to your cluster.
-  ```
-  apiVersion: metallb.io/v1beta1
-  kind: L2Advertisement
-  metadata:
-    name: kf-l2advertisement
-    namespace: metallb-system
-  spec:
-    ipAddressPools:
-    - kf-ip-address-pool
-  ```
 
 ## Access Kubeflow Central Dashboard
 There are multiple ways to acces your Kubeflow Central Dashboard:
 - Port Forward: The default way to access Kubeflow Central Dashboard is by using Port-Forward. You can port forward the istio ingress gateway to local port 8080.
     
    ```
-   kubectl --kubeconfig=<NKE_k8s_cluster_kubeconfig_path> port-forward svc/istio-ingressgateway -n istio-system 8080:80
+   kubectl --kubeconfig=<NKP_k8s_cluster_kubeconfig_path> port-forward svc/istio-ingressgateway -n istio-system 8080:80
    ```
     
   You can now access the Kubeflow Central Dashboard at http://localhost:8080. At the Dex login page, enter user credentials that you previously created.
