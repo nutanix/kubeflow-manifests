@@ -21,7 +21,7 @@ weight = 4
 1. Clone the kubeflow manifest github repository and checkout release branch of {{% nutanix/latest-version %}} release.
 
    ```
-   git clone -b release-v1.8 https://github.com/nutanix/kubeflow-manifests.git && cd kubeflow-manifests
+   git clone -b release-v1.10.1 https://github.com/nutanix/kubeflow-manifests.git && cd kubeflow-manifests
    ```
 
 2. Setup [Nutanix Object Store](https://portal.nutanix.com/page/documents/details?targetId=Objects-v4_2:top-intro-c.html).
@@ -41,7 +41,7 @@ weight = 4
 1. Clone the kubeflow manifest github repository and checkout release branch of {{% nutanix/latest-version %}} release.
 
    ```
-   git clone -b release-v1.8 https://github.com/nutanix/kubeflow-manifests.git && cd kubeflow-manifests
+   git clone -b release-v1.10.1 https://github.com/nutanix/kubeflow-manifests.git && cd kubeflow-manifests
    ```
 
 2. Run the following make command from the root of the github repository.
