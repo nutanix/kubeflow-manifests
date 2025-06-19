@@ -2,8 +2,8 @@
 ##########################################################
 # Note: Update base URL for older version  when releasing a new version
 baseURL = "https://nutanix.github.io/kubeflow-manifests/dev"
-title = "Kubeflow on NKE"
-description = "Open-source machine learning platform running on NKE"
+title = "Kubeflow on NKP"
+description = "Open-source machine learning platform running on NKP"
 
 # Language settings
 contentDir = "content/en"
@@ -98,8 +98,8 @@ pygmentsStyle = "tango"
 ##########################################################
 [languages]
   [languages.en]
-    title = "Kubeflow on NKE"
-    description = "Open-source machine learning platform running on NKE"
+    title = "Kubeflow on NKP"
+    description = "Open-source machine learning platform running on NKP"
     languageName ="English"
     # Weight used for sorting.
     weight = 1
@@ -197,7 +197,7 @@ pygmentsStyle = "tango"
   #     name = "GitHub"
   #     url = "https://github.com/nutanix/kubeflow-manifests"
   #     icon = "fab fa-github"
-  #     desc = "Kubeflow on NKE repo"
+  #     desc = "Kubeflow on NKP repo"
   #   [[params.links.developer]]
   #     name = "Slack"
   #     url = "https://www.kubeflow.org/docs/about/community/#kubeflow-slack"

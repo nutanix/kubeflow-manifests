@@ -113,7 +113,3 @@ spec:
             configMapKeyRef:
               name: pipeline-install-config
               key: objStoreHost
-        - name: FRONTEND_TAG
-          value: 2.0.3
-        - name: FRONTEND_IMAGE
-          value: quay.io/ajaynagar/kubeflow-ntnx/kfp-frontend

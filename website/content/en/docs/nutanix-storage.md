@@ -30,28 +30,46 @@ You can use standard s3 boto api to upload and download objects from a Kubeflow 
 
 ## Nutanix Volumes in Kubeflow Pipeline
 
-Nutanix volumes are created with the default storage class configured in the NKE cluster. See [Default Storage Class](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_8:top-storage-class-r.html) of Nutanix Kubernetes Engine for more details about creating storage classes.
+Nutanix volumes are created with the default storage class configured in the NKP cluster. See [Default Storage Class](https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Platform-v2_15:top-default-storage-providers-c.html) of Nutanix Kubernetes Platform for more details about creating storage classes. You can refer to this [example](https://github.com/kubeflow/pipelines/blob/da358e5176f83084ffa06ceb180b815064fb15ee/samples/v2/pipeline_with_volume.py) for more details.
 
    ```
-   vop = dsl.VolumeOp(
-      name="Create a volume to share data between stages on Nutanix Volumes",
-      resource_name="data-volume",
-      size="1Gi",
-      modes=dsl.VOLUME_MODE_RWO)
+   from kfp import kubernetes
+
+   pvc1 = kubernetes.CreatePVC(
+        pvc_name_suffix='-my-pvc',
+        access_modes=['ReadWriteOnce'],
+        size='1Gi',
+   )
+
+   # Given that you have a pipelines task called task1
+   kubernetes.mount_pvc(
+        task1,
+        pvc_name=pvc1.outputs['name'],
+        mount_path='/data',
+   )
    ```
 
 ## Nutanix Files in Kubeflow Pipeline
     
-   Create a storage class to dynamically provision Nutanix File shares. See [Files Storage Class](https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:csi-csi-plugin-manage-dynamic-nfs-t.html) of Nutanix Kubernetes Engine for more details on creating storage classes for dynamic NFS Share provisioning with Nutanix Files.
-   Once storage class is setup, you can use `VolumeOp` operation to create volume on Nutanix Files.
+   Create a storage class to dynamically provision Nutanix File shares. See [Files Storage Class](https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:csi-csi-plugin-manage-dynamic-nfs-t.html) of Nutanix Kubernetes Platform for more details on creating storage classes for dynamic NFS Share provisioning with Nutanix Files.
+   Once storage class is setup, you can use `CreatePVC` operation to create a PVC on a Nutanix Files storage class which can be used to mount to tasks using mount_pvc. You can refer to this [example](https://github.com/kubeflow/pipelines/blob/da358e5176f83084ffa06ceb180b815064fb15ee/samples/v2/pipeline_with_volume.py) for more details.
     
    ```
-   vop = dsl.VolumeOp(
-      name="Create a volume to share data between stages on Nutanix Files",
-      resource_name="data-volume",
-      size="1Gi",
-      modes=dsl.VOLUME_MODE_RWM,
-      storage_class="files-sc")
+   from kfp import kubernetes
+
+   pvc1 = kubernetes.CreatePVC(
+        pvc_name_suffix='-my-pvc',
+        access_modes=['ReadWriteMany'],
+        size='1Gi',
+        storage_class_name='files-sc',
+   )
+
+   # Given that you have a pipelines task called task1
+   kubernetes.mount_pvc(
+        task1,
+        pvc_name=pvc1.outputs['name'],
+        mount_path='/data',
+   )
    ```
 
 ## Using Nutanix Objects as an artifact store

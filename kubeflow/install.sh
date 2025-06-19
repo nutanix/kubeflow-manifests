@@ -1,6 +1,6 @@
 #!/bin/bash
 
-KF_VERSION=v1.8.0
+KF_VERSION=v1.10.1
 
 helpFunction()
 {
@@ -57,7 +57,7 @@ EOF
 fi
 
 # Install kubeflow
-while ! kustomize build manifests/example  | kubectl apply -f -; do echo "Retrying to apply resources"; sleep 60; done
+while ! kustomize build manifests/example | kubectl apply --server-side --force-conflicts -f -; do echo "Retrying to apply resources"; sleep 20; done
 
 # Remove kubeflow manifests
 rm -rf manifests
