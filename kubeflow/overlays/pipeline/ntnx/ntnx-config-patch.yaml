@@ -113,3 +113,28 @@ spec:
             configMapKeyRef:
               name: pipeline-install-config
               key: objStoreHost
+        - name: MINIO_SERVICE_INSECURE
+          valueFrom:
+            configMapKeyRef:
+              name: pipeline-install-config
+              key: insecure
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kfp-launcher
+data:
+  defaultPipelineRoot: $(kfp-artifact-storage-pipeline-root)
+  providers: |
+    s3:
+      default:
+        endpoint: $(kfp-artifact-storage-endpoint)
+        disableSSL: $(kfp-artifact-storage-insecure)
+        region: $(kfp-artifact-storage-region)
+        forcePathStyle: true
+        credentials:
+          fromEnv: false
+          secretRef:
+            secretName: mlpipeline-minio-artifact
+            accessKeyKey: accesskey
+            secretKeyKey: secretkey
