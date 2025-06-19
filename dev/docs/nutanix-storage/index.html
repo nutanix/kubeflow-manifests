@@ -28,7 +28,7 @@
       "datePublished": "0001-01-01 00:00:00 \u002b0000 UTC",
       "dateModified" : "0001-01-01 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/nutanix.github.io\/kubeflow-manifests\/dev\/docs\/nutanix-storage\/",
-      "wordCount" : "233",
+      "wordCount" : "283",
       "keywords" : [ "Kubeflow on Nutanix Cloud" ]
   }
   </script>
@@ -42,19 +42,19 @@
 <meta name="msapplication-TileColor" content="#4279f4">
 <meta name="theme-color" content="#4279f4">
 
-<title>Integrate with Nutanix Storage | Kubeflow on NKE</title>
+<title>Integrate with Nutanix Storage | Kubeflow on NKP</title>
 <meta name="description" content="How to integrate Nutanix Storage in Kubeflow">
 <meta property="og:title" content="Integrate with Nutanix Storage" />
 <meta property="og:description" content="How to integrate Nutanix Storage in Kubeflow" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://nutanix.github.io/kubeflow-manifests/dev/docs/nutanix-storage/" /><meta property="article:section" content="docs" />
 
-<meta property="article:modified_time" content="2023-10-27T18:27:26+05:30" /><meta property="og:site_name" content="Kubeflow on NKE" />
+<meta property="article:modified_time" content="2025-06-19T11:19:51+05:30" /><meta property="og:site_name" content="Kubeflow on NKP" />
 
 <meta itemprop="name" content="Integrate with Nutanix Storage">
 <meta itemprop="description" content="How to integrate Nutanix Storage in Kubeflow">
-<meta itemprop="dateModified" content="2023-10-27T18:27:26+05:30" />
-<meta itemprop="wordCount" content="233">
+<meta itemprop="dateModified" content="2025-06-19T11:19:51+05:30" />
+<meta itemprop="wordCount" content="283">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Integrate with Nutanix Storage"/>
 <meta name="twitter:description" content="How to integrate Nutanix Storage in Kubeflow"/>
@@ -62,8 +62,8 @@
 
 
 
-<link rel="preload" href="/kubeflow-manifests/dev/scss/main.min.141bb6a6562337e5c4431796e4427b3db84c31e2364a34e81a739d244399d7fb.css" as="style">
-<link href="/kubeflow-manifests/dev/scss/main.min.141bb6a6562337e5c4431796e4427b3db84c31e2364a34e81a739d244399d7fb.css" rel="stylesheet" integrity="">
+<link rel="preload" href="/kubeflow-manifests/dev/scss/main.min.4fe3437038bc0ed6905a780cac9f6d3f031cdff1b24b337efe88c9d3323cc8fb.css" as="style">
+<link href="/kubeflow-manifests/dev/scss/main.min.4fe3437038bc0ed6905a780cac9f6d3f031cdff1b24b337efe88c9d3323cc8fb.css" rel="stylesheet" integrity="">
 
 <script
   src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -87,7 +87,7 @@ if (!doNotTrack) {
       
 <nav class="js-navbar-scroll navbar navbar-expand-md navbar-dark  td-navbar">
         <a class="navbar-brand" href="/kubeflow-manifests/dev/">
-		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">Kubeflow on NKE</span>
+		<span class="navbar-logo"></span><span class="text-uppercase font-weight-bold">Kubeflow on NKP</span>
 	</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main_navbar" aria-controls="main_navbar" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
@@ -261,21 +261,39 @@ if (!doNotTrack) {
 </span></span><span class="line"><span class="cl">                 verify=False)
 </span></span><span class="line"><span class="cl">response = s3_client.upload_file(f&#39;./test_upload_data.txt&#39;, bucket_name, object_name)
 </span></span></code></pre></div><h2 id="nutanix-volumes-in-kubeflow-pipeline">Nutanix Volumes in Kubeflow Pipeline</h2>
-<p>Nutanix volumes are created with the default storage class configured in the NKE cluster. See <a href="https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_8:top-storage-class-r.html">Default Storage Class</a> of Nutanix Kubernetes Engine for more details about creating storage classes.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vop = dsl.VolumeOp(
-</span></span><span class="line"><span class="cl">   name=&#34;Create a volume to share data between stages on Nutanix Volumes&#34;,
-</span></span><span class="line"><span class="cl">   resource_name=&#34;data-volume&#34;,
-</span></span><span class="line"><span class="cl">   size=&#34;1Gi&#34;,
-</span></span><span class="line"><span class="cl">   modes=dsl.VOLUME_MODE_RWO)
+<p>Nutanix volumes are created with the default storage class configured in the NKP cluster. See <a href="https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Platform-v2_15:top-default-storage-providers-c.html">Default Storage Class</a> of Nutanix Kubernetes Platform for more details about creating storage classes. You can refer to this <a href="https://github.com/kubeflow/pipelines/blob/da358e5176f83084ffa06ceb180b815064fb15ee/samples/v2/pipeline_with_volume.py">example</a> for more details.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">from kfp import kubernetes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">pvc1 = kubernetes.CreatePVC(
+</span></span><span class="line"><span class="cl">     pvc_name_suffix=&#39;-my-pvc&#39;,
+</span></span><span class="line"><span class="cl">     access_modes=[&#39;ReadWriteOnce&#39;],
+</span></span><span class="line"><span class="cl">     size=&#39;1Gi&#39;,
+</span></span><span class="line"><span class="cl">)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Given that you have a pipelines task called task1
+</span></span><span class="line"><span class="cl">kubernetes.mount_pvc(
+</span></span><span class="line"><span class="cl">     task1,
+</span></span><span class="line"><span class="cl">     pvc_name=pvc1.outputs[&#39;name&#39;],
+</span></span><span class="line"><span class="cl">     mount_path=&#39;/data&#39;,
+</span></span><span class="line"><span class="cl">)
 </span></span></code></pre></div><h2 id="nutanix-files-in-kubeflow-pipeline">Nutanix Files in Kubeflow Pipeline</h2>
-<p>Create a storage class to dynamically provision Nutanix File shares. See <a href="https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:csi-csi-plugin-manage-dynamic-nfs-t.html">Files Storage Class</a> of Nutanix Kubernetes Engine for more details on creating storage classes for dynamic NFS Share provisioning with Nutanix Files.
-Once storage class is setup, you can use <code>VolumeOp</code> operation to create volume on Nutanix Files.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">vop = dsl.VolumeOp(
-</span></span><span class="line"><span class="cl">   name=&#34;Create a volume to share data between stages on Nutanix Files&#34;,
-</span></span><span class="line"><span class="cl">   resource_name=&#34;data-volume&#34;,
-</span></span><span class="line"><span class="cl">   size=&#34;1Gi&#34;,
-</span></span><span class="line"><span class="cl">   modes=dsl.VOLUME_MODE_RWM,
-</span></span><span class="line"><span class="cl">   storage_class=&#34;files-sc&#34;)
+<p>Create a storage class to dynamically provision Nutanix File shares. See <a href="https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:csi-csi-plugin-manage-dynamic-nfs-t.html">Files Storage Class</a> of Nutanix Kubernetes Platform for more details on creating storage classes for dynamic NFS Share provisioning with Nutanix Files.
+Once storage class is setup, you can use <code>CreatePVC</code> operation to create a PVC on a Nutanix Files storage class which can be used to mount to tasks using mount_pvc. You can refer to this <a href="https://github.com/kubeflow/pipelines/blob/da358e5176f83084ffa06ceb180b815064fb15ee/samples/v2/pipeline_with_volume.py">example</a> for more details.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">from kfp import kubernetes
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">pvc1 = kubernetes.CreatePVC(
+</span></span><span class="line"><span class="cl">     pvc_name_suffix=&#39;-my-pvc&#39;,
+</span></span><span class="line"><span class="cl">     access_modes=[&#39;ReadWriteMany&#39;],
+</span></span><span class="line"><span class="cl">     size=&#39;1Gi&#39;,
+</span></span><span class="line"><span class="cl">     storage_class_name=&#39;files-sc&#39;,
+</span></span><span class="line"><span class="cl">)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Given that you have a pipelines task called task1
+</span></span><span class="line"><span class="cl">kubernetes.mount_pvc(
+</span></span><span class="line"><span class="cl">     task1,
+</span></span><span class="line"><span class="cl">     pvc_name=pvc1.outputs[&#39;name&#39;],
+</span></span><span class="line"><span class="cl">     mount_path=&#39;/data&#39;,
+</span></span><span class="line"><span class="cl">)
 </span></span></code></pre></div><h2 id="using-nutanix-objects-as-an-artifact-store">Using Nutanix Objects as an artifact store</h2>
 <p>In order to use Nutanix Objects as an underlying artifact store, install the kubeflow with Nutanix object store.</p>
 <p><img src="../images/objects_browser.png" alt="objects_browser"></p>
@@ -348,7 +366,7 @@ Once storage class is setup, you can use <code>VolumeOp</code> operation to crea
 	
 	
 	<div class="text-muted mt-5 pt-3 border-top">
-  Last modified October 27, 2023: <a href="https://github.com/nutanix/kubeflow-manifests/commit/2a5f927a9764e03cbbe408f42833536ba18c4df3">Image pull using docker credentials support  (#17) (2a5f927)</a>
+  Last modified June 19, 2025: <a href="https://github.com/nutanix/kubeflow-manifests/commit/1c9e7e107b4d9407f292ab646fae636e378ca336">Update Kubeflow to v1.10.1 and NKE to NKP (#22) (1c9e7e1)</a>
 </div>
 
 </div>
@@ -365,7 +383,7 @@ Once storage class is setup, you can use <code>VolumeOp</code> operation to crea
         
       </div>
       <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-        <small class="text-white">&copy; 2023 Nutanix | Documentation Distributed under CC BY 4.0</small>
+        <small class="text-white">&copy; 2025 Nutanix | Documentation Distributed under CC BY 4.0</small>
         <p><small class="ml-1"><a href="https://www.nutanix.com/legal/privacy-statement" target="_blank" rel="noopener">Privacy Policy</a></small></p>
 	
 		
