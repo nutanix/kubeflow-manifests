@@ -28,7 +28,7 @@ def get_settings_from_env(controller_port=None,
                           visualization_server_image=None, frontend_image=None,
                           visualization_server_tag=None, frontend_tag=None, disable_istio_sidecar=None,
                           minio_access_key=None, minio_secret_key=None, minio_service_region=None,
-                          minio_service_host=None, kfp_default_pipeline_root=None):
+                          minio_service_host=None, minio_service_insecure=None, kfp_default_pipeline_root=None):
     """
     Returns a dict of settings from environment variables relevant to the controller
 
@@ -96,12 +96,16 @@ def get_settings_from_env(controller_port=None,
         kfp_default_pipeline_root or \
         os.environ.get("KFP_DEFAULT_PIPELINE_ROOT")
 
+    settings["minio_service_insecure"] = \
+        minio_service_insecure or \
+        os.environ.get("MINIO_SERVICE_INSECURE", "true")
+
     return settings
 
 def server_factory(visualization_server_image,
                    visualization_server_tag, frontend_image, frontend_tag,
                    disable_istio_sidecar, minio_access_key,
-                   minio_secret_key, minio_service_region, minio_service_host, kfp_default_pipeline_root=None,
+                   minio_secret_key, minio_service_region, minio_service_host, minio_service_insecure, kfp_default_pipeline_root=None,
                    url="", controller_port=8080):
     """
     Returns an HTTPServer populated with Handler with customized settings
@@ -130,6 +134,20 @@ def server_factory(visualization_server_image,
                     },
                     "data": {
                         "defaultPipelineRoot": kfp_default_pipeline_root,
+                        "providers": (
+                            "s3:\n"
+                            "  default:\n"
+                            f"    endpoint: {minio_service_host}\n"
+                            f"    disableSSL: {minio_service_insecure}\n"
+                            f"    region: {minio_service_region}\n"
+                            "    forcePathStyle: true\n"
+                            "    credentials:\n"
+                            "      fromEnv: false\n"
+                            "      secretRef:\n"
+                            "        secretName: mlpipeline-minio-artifact\n"
+                            "        accessKeyKey: accesskey\n"
+                            "        secretKeyKey: secretkey"
+                        )
                     },
                 }]
 

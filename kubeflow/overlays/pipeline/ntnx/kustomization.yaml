@@ -47,6 +47,9 @@ labels:
   pairs:
     application-crd-id: kubeflow-pipelines
 
+configurations:
+- var-reference.yaml
+
 vars:
 - name: kfp-artifact-storage-endpoint
   objref:
@@ -62,3 +65,17 @@ vars:
     apiVersion: v1
   fieldref:
     fieldpath: data.insecure
+- name: kfp-artifact-storage-region
+  objref:
+    kind: ConfigMap
+    name: pipeline-install-config
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.objStoreRegion
+- name: kfp-artifact-storage-pipeline-root
+  objref:
+    kind: ConfigMap
+    name: pipeline-install-config
+    apiVersion: v1
+  fieldref:
+    fieldpath: data.defaultPipelineRoot
