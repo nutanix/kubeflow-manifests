@@ -139,7 +139,7 @@ pygmentsStyle = "tango"
 
   # These entries appear in the drop-down menu at the top of the website.
   [[params.versions]]
-    version = "v1.10.1"
+    version = "v1.10.1(latest)"
     githubbranch = "release-v1.10.1"
     url = "https://nutanix.github.io/kubeflow-manifests/docs"
 
