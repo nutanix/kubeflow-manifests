@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kubeflow on NKE – Tags</title>
+    <title>Kubeflow on NKP – Tags</title>
     <link>https://nutanix.github.io/kubeflow-manifests/tags/</link>
-    <description>Recent content in Tags on Kubeflow on NKE</description>
+    <description>Recent content in Tags on Kubeflow on NKP</description>
     <generator>Hugo -- gohugo.io</generator>
     
 	  <atom:link href="https://nutanix.github.io/kubeflow-manifests/tags/index.xml" rel="self" type="application/rss+xml" />

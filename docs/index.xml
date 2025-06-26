@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Kubeflow on NKE – Documentation</title>
+    <title>Kubeflow on NKP – Documentation</title>
     <link>https://nutanix.github.io/kubeflow-manifests/docs/</link>
-    <description>Recent content in Documentation on Kubeflow on NKE</description>
+    <description>Recent content in Documentation on Kubeflow on NKP</description>
     <generator>Hugo -- gohugo.io</generator>
     
 	  <atom:link href="https://nutanix.github.io/kubeflow-manifests/docs/index.xml" rel="self" type="application/rss+xml" />
@@ -25,23 +25,23 @@
         &lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;Create &lt;a href=&#34;https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_8:top-deploy-kubernetes-cluster-t.html&#34;&gt;Nutanix Kubernetes Engine Cluster&lt;/a&gt; (Kubernetes Version 1.25)&lt;/p&gt;
+&lt;p&gt;Create &lt;a href=&#34;https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Platform-v2_15:top-get-started-nkp-t.html&#34;&gt;Nutanix Kubernetes Platform Cluster&lt;/a&gt; (Kubernetes Version 1.32)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Install &lt;a href=&#34;https://kubernetes.io/docs/tasks/tools/#kubectl&#34;&gt;kubectl&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Install &lt;a href=&#34;https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.0.3&#34;&gt;kustomize version 5.0.3&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Install &lt;a href=&#34;https://github.com/kubernetes-sigs/kustomize/releases/tag/kustomize%2Fv5.4.3&#34;&gt;kustomize version 5.4.3&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Download &lt;a href=&#34;https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_7:top-download-kubeconfig-t.html&#34;&gt;Kubeconfig&lt;/a&gt; of your deployed NKE cluster.&lt;/p&gt;
+&lt;p&gt;Connect to the kubernetes cluster by downloading kubeconfig from NKP UI Dashboard&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;installing-kubeflow-with-nutanix-object-store&#34;&gt;Installing Kubeflow with Nutanix Object Store&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;Clone the kubeflow manifest github repository and checkout release branch of 1.8.0 release.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone -b release-v1.8 https://github.com/nutanix/kubeflow-manifests.git &amp;amp;&amp;amp; cd kubeflow-manifests
+&lt;p&gt;Clone the kubeflow manifest github repository and checkout release branch of 1.10.1 release.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone -b release-v1.10.1 https://github.com/nutanix/kubeflow-manifests.git &amp;amp;&amp;amp; cd kubeflow-manifests
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Setup &lt;a href=&#34;https://portal.nutanix.com/page/documents/details?targetId=Objects-v4_2:top-intro-c.html&#34;&gt;Nutanix Object Store&lt;/a&gt;.&lt;/p&gt;
@@ -55,14 +55,14 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Run the following make command from the root of the github repository.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;make install-nke-kubeflow
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;make install-nkp-kubeflow
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;installing-vanilla-kubeflow&#34;&gt;Installing Vanilla Kubeflow&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;Clone the kubeflow manifest github repository and checkout release branch of 1.8.0 release.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone -b release-v1.8 https://github.com/nutanix/kubeflow-manifests.git &amp;amp;&amp;amp; cd kubeflow-manifests
+&lt;p&gt;Clone the kubeflow manifest github repository and checkout release branch of 1.10.1 release.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;git clone -b release-v1.10.1 https://github.com/nutanix/kubeflow-manifests.git &amp;amp;&amp;amp; cd kubeflow-manifests
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Run the following make command from the root of the github repository.&lt;/p&gt;
@@ -97,40 +97,12 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  username: user2
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Rollout restart dex deployment&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl -n auth rollout restart deployment dex
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;setup-loadbalancer-optional&#34;&gt;Setup LoadBalancer (Optional)&lt;/h2&gt;
-&lt;p&gt;If you already have a load balancer set up for your NKE cluster, you can skip this step. If you do not wish to
-expose the kubeflow dashboard to an external load balancer IP, you can also skip this step.
-If not, you can install the &lt;a href=&#34;https://metallb.universe.tf/&#34;&gt;MetalLB&lt;/a&gt; load balancer manifests on your NKE cluster.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.11/config/manifests/metallb-native.yaml
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After the manifests have been applied, we need to configure MetalLB with the IP range that it can use to assign external IPs to services of type LoadBalancer. You can find the range from the subnet in Prism Central’s &lt;a href=&#34;https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Flow-Networking-Guide:ear-flow-nw-view-subnet-list-pc-r.html&#34;&gt;networking and security&lt;/a&gt; settings.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Create &lt;code&gt;IPAddressPool&lt;/code&gt; custom resource by applying the following manifest to your cluster. Substitute the addresses field with your IP address range.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apiVersion: metallb.io/v1beta1
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kind: IPAddressPool
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;metadata:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  name: kf-ip-address-pool
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  namespace: metallb-system
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;spec:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  addresses:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  - &amp;lt;IP_ADDRESS_RANGE: x.x.x.x-x.x.x.x&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
-&lt;li&gt;Create &lt;code&gt;L2Advertisement&lt;/code&gt; custom resource by applying the following manifest to your cluster.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;apiVersion: metallb.io/v1beta1
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kind: L2Advertisement
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;metadata:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  name: kf-l2advertisement
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  namespace: metallb-system
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;spec:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  ipAddressPools:
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  - kf-ip-address-pool
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;access-kubeflow-central-dashboard&#34;&gt;Access Kubeflow Central Dashboard&lt;/h2&gt;
 &lt;p&gt;There are multiple ways to acces your Kubeflow Central Dashboard:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Port Forward: The default way to access Kubeflow Central Dashboard is by using Port-Forward. You can port forward the istio ingress gateway to local port 8080.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl --kubeconfig=&amp;lt;NKE_k8s_cluster_kubeconfig_path&amp;gt; port-forward svc/istio-ingressgateway -n istio-system 8080:80
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubectl --kubeconfig=&amp;lt;NKP_k8s_cluster_kubeconfig_path&amp;gt; port-forward svc/istio-ingressgateway -n istio-system 8080:80
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;You can now access the Kubeflow Central Dashboard at http://localhost:8080. At the Dex login page, enter user credentials that you previously created.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -230,21 +202,39 @@ If not, you can install the &lt;a href=&#34;https://metallb.universe.tf/&#34;&gt
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                 verify=False)
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;response = s3_client.upload_file(f&amp;#39;./test_upload_data.txt&amp;#39;, bucket_name, object_name)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;nutanix-volumes-in-kubeflow-pipeline&#34;&gt;Nutanix Volumes in Kubeflow Pipeline&lt;/h2&gt;
-&lt;p&gt;Nutanix volumes are created with the default storage class configured in the NKE cluster. See &lt;a href=&#34;https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Engine-v2_8:top-storage-class-r.html&#34;&gt;Default Storage Class&lt;/a&gt; of Nutanix Kubernetes Engine for more details about creating storage classes.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vop = dsl.VolumeOp(
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   name=&amp;#34;Create a volume to share data between stages on Nutanix Volumes&amp;#34;,
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   resource_name=&amp;#34;data-volume&amp;#34;,
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   size=&amp;#34;1Gi&amp;#34;,
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   modes=dsl.VOLUME_MODE_RWO)
+&lt;p&gt;Nutanix volumes are created with the default storage class configured in the NKP cluster. See &lt;a href=&#34;https://portal.nutanix.com/page/documents/details?targetId=Nutanix-Kubernetes-Platform-v2_15:top-default-storage-providers-c.html&#34;&gt;Default Storage Class&lt;/a&gt; of Nutanix Kubernetes Platform for more details about creating storage classes. You can refer to this &lt;a href=&#34;https://github.com/kubeflow/pipelines/blob/da358e5176f83084ffa06ceb180b815064fb15ee/samples/v2/pipeline_with_volume.py&#34;&gt;example&lt;/a&gt; for more details.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;from kfp import kubernetes
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pvc1 = kubernetes.CreatePVC(
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     pvc_name_suffix=&amp;#39;-my-pvc&amp;#39;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     access_modes=[&amp;#39;ReadWriteOnce&amp;#39;],
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     size=&amp;#39;1Gi&amp;#39;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Given that you have a pipelines task called task1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubernetes.mount_pvc(
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     task1,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     pvc_name=pvc1.outputs[&amp;#39;name&amp;#39;],
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     mount_path=&amp;#39;/data&amp;#39;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;nutanix-files-in-kubeflow-pipeline&#34;&gt;Nutanix Files in Kubeflow Pipeline&lt;/h2&gt;
-&lt;p&gt;Create a storage class to dynamically provision Nutanix File shares. See &lt;a href=&#34;https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:csi-csi-plugin-manage-dynamic-nfs-t.html&#34;&gt;Files Storage Class&lt;/a&gt; of Nutanix Kubernetes Engine for more details on creating storage classes for dynamic NFS Share provisioning with Nutanix Files.
-Once storage class is setup, you can use &lt;code&gt;VolumeOp&lt;/code&gt; operation to create volume on Nutanix Files.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;vop = dsl.VolumeOp(
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   name=&amp;#34;Create a volume to share data between stages on Nutanix Files&amp;#34;,
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   resource_name=&amp;#34;data-volume&amp;#34;,
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   size=&amp;#34;1Gi&amp;#34;,
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   modes=dsl.VOLUME_MODE_RWM,
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   storage_class=&amp;#34;files-sc&amp;#34;)
+&lt;p&gt;Create a storage class to dynamically provision Nutanix File shares. See &lt;a href=&#34;https://portal.nutanix.com/page/documents/details?targetId=CSI-Volume-Driver-v2_3:csi-csi-plugin-manage-dynamic-nfs-t.html&#34;&gt;Files Storage Class&lt;/a&gt; of Nutanix Kubernetes Platform for more details on creating storage classes for dynamic NFS Share provisioning with Nutanix Files.
+Once storage class is setup, you can use &lt;code&gt;CreatePVC&lt;/code&gt; operation to create a PVC on a Nutanix Files storage class which can be used to mount to tasks using mount_pvc. You can refer to this &lt;a href=&#34;https://github.com/kubeflow/pipelines/blob/da358e5176f83084ffa06ceb180b815064fb15ee/samples/v2/pipeline_with_volume.py&#34;&gt;example&lt;/a&gt; for more details.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;from kfp import kubernetes
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;pvc1 = kubernetes.CreatePVC(
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     pvc_name_suffix=&amp;#39;-my-pvc&amp;#39;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     access_modes=[&amp;#39;ReadWriteMany&amp;#39;],
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     size=&amp;#39;1Gi&amp;#39;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     storage_class_name=&amp;#39;files-sc&amp;#39;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;# Given that you have a pipelines task called task1
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;kubernetes.mount_pvc(
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     task1,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     pvc_name=pvc1.outputs[&amp;#39;name&amp;#39;],
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;     mount_path=&amp;#39;/data&amp;#39;,
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;using-nutanix-objects-as-an-artifact-store&#34;&gt;Using Nutanix Objects as an artifact store&lt;/h2&gt;
 &lt;p&gt;In order to use Nutanix Objects as an underlying artifact store, install the kubeflow with Nutanix object store.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;../images/objects_browser.png&#34; alt=&#34;objects_browser&#34;&gt;&lt;/p&gt;
